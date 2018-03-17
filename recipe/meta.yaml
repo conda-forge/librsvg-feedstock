@@ -18,6 +18,7 @@ build:
 
 requirements:
   build:
+    - rust
     - toolchain
     - pkg-config
     - glib 2.55.*
