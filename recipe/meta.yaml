@@ -18,21 +18,22 @@ build:
 
 requirements:
   build:
-    - toolchain
     - pkg-config
-    - glib 2.55.*
-    - libxml2 2.9.*
-    - cairo 1.14.*
+    - {{ compiler('c') }}
+  host:
+    - glib
+    - libxml2
+    - cairo
     - gdk-pixbuf 2.36.*
     - libcroco 0.6.*
-    - pango 1.40.*
+    - pango
   run:
-    - glib 2.55.*
-    - libxml2 2.9.*
-    - cairo 1.14.*
+    - glib
+    - libxml2
+    - cairo
     - gdk-pixbuf 2.36.*
     - libcroco 0.6.*
-    - pango 1.40.*
+    - pango
 
 test:
   commands:
