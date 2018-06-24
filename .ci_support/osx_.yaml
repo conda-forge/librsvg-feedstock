@@ -1,0 +1,25 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '10.9'
+c_compiler:
+- toolchain_c
+cairo:
+- '1.14'
+glib:
+- '2.55'
+libxml2:
+- '2.9'
+macos_machine:
+- x86_64-apple-darwin13.4.0
+macos_min_version:
+- '10.9'
+pango:
+- '1.40'
+pin_run_as_build:
+  cairo:
+    max_pin: x.x
+  glib:
+    max_pin: x.x
+  libxml2:
+    max_pin: x.x
+  pango:
+    max_pin: x.x
