@@ -19,6 +19,7 @@ build:
 requirements:
   build:
     - pkg-config
+    - rust
     - {{ compiler('c') }}
   host:
     - glib
