@@ -21,8 +21,6 @@ pango:
 pin_run_as_build:
   cairo:
     max_pin: x.x
-  glib:
-    max_pin: x.x
   libxml2:
     max_pin: x.x
   pango:
