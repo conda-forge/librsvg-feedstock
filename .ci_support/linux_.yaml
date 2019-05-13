@@ -1,5 +1,7 @@
 c_compiler:
 - gcc
+c_compiler_version:
+- '7'
 cairo:
 - '1.16'
 channel_sources:
@@ -16,8 +18,6 @@ pango:
 - '1.40'
 pin_run_as_build:
   cairo:
-    max_pin: x.x
-  glib:
     max_pin: x.x
   libxml2:
     max_pin: x.x
