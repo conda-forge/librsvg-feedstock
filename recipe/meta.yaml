@@ -1,7 +1,7 @@
-{% set version = "2.44.14" %}
+{% set version = "2.45.6" %}
 {% set version_major = version.split('.', 1)[0] %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "6a85a7868639cdd4aa064245cc8e9d864dad8b8e9a4a8031bb09a4796bc4e303" %}
+{% set sha256 = "0e6e26cb5c79cfa73c0ddab06808ace4d10c4a626b81c31a75ead37c6cb4df41" %}
 
 package:
   name: librsvg
