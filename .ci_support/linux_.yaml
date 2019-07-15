@@ -15,7 +15,7 @@ glib:
 libxml2:
 - '2.9'
 pango:
-- '1.40'
+- '1.42'
 pin_run_as_build:
   cairo:
     max_pin: x.x
