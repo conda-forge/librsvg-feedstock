@@ -18,7 +18,7 @@ build:
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
-    - {{ pin_subpackage('librsvg', max_pin='x.x') }}
+    - {{ pin_subpackage('librsvg', max_pin='x') }}
 
 requirements:
   build:
