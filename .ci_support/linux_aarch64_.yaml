@@ -16,6 +16,8 @@ channel_targets:
 - conda-forge main
 docker_image:
 - condaforge/linux-anvil-aarch64
+gdk_pixbuf:
+- 2.36.12
 glib:
 - '2.58'
 libxml2:
@@ -25,6 +27,8 @@ pango:
 pin_run_as_build:
   cairo:
     max_pin: x.x
+  gdk_pixbuf:
+    max_pin: x.x.x
   libxml2:
     max_pin: x.x
   pango:

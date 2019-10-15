@@ -13,7 +13,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
@@ -30,22 +30,20 @@ requirements:
     - glib
     - libxml2
     - cairo
-    - gdk-pixbuf 2.36.*
+    - gdk-pixbuf
     - libcroco 0.6.*
     - pango
   run:
     - glib
     - libxml2
     - cairo
-    - gdk-pixbuf 2.36.*
+    - gdk-pixbuf
     - libcroco 0.6.*
     - pango
 
 test:
   commands:
     - test -f $PREFIX/lib/librsvg-{{ version_major }}$SHLIB_EXT
-    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
-    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
     - rsvg-convert --version
 
 about:
