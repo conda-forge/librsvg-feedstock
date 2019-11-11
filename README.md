@@ -3,7 +3,7 @@ About librsvg
 
 Home: https://wiki.gnome.org/Projects/LibRsvg
 
-Package license: GPLv2
+Package license: LGPLv2
 
 Feedstock license: BSD 3-Clause
 
