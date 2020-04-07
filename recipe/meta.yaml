@@ -68,7 +68,7 @@ test:
     - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ namever }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
 
     # verify that gdk-pixbuf loader library gets installed
-    - test -f $PREFIX/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg${SHLIB_EXT}  # [unix]
+    - test -f $PREFIX/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.so  # [unix]
     - if not exist %PREFIX%\\Library\\lib\\gdk-pixbuf-2.0\\2.10.0\\loaders\\libpixbufloader-svg.dll exit 1  # [win]
 
     # verify that headers get installed
