@@ -1,7 +1,7 @@
-{% set version = "2.46.4" %}
+{% set version = "2.48.2" %}
 {% set version_major = version.split('.', 1)[0] %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "b45b9ee3b64c58baaf800bcdff5fcd04d79930dba4c56e46e0d3b0aead40cc29" %}
+{% set sha256 = "272658a0e04fce21eb1368c345cc1305bfeada4ca6d7db99e77323ed0668bdca" %}
 
 package:
   name: librsvg
@@ -13,7 +13,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
