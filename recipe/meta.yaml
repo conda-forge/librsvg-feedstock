@@ -81,7 +81,7 @@ test:
 
 about:
   home: https://wiki.gnome.org/Projects/LibRsvg
-  license: LGPLv2
+  license: LGPL-2.1-or-later
   license_file: COPYING.LIB
   summary: librsvg is a library to render SVG files using cairo.
 
