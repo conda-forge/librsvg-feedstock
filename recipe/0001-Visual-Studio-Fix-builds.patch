@@ -1,0 +1,62 @@
+From 31c3892d8fca557738c92f1343eeb457fad38ed1 Mon Sep 17 00:00:00 2001
+From: Chun-wei Fan <fanchunwei@src.gnome.org>
+Date: Thu, 16 Jan 2020 16:27:29 +0800
+Subject: [PATCH] Visual Studio: Fix builds
+
+The Rust build files have been modified in a way that we need other
+items other than the items in rsvg_internals/, so make sure we cover them
+as well by running cargo.exe against the Cargo.toml in $(srcroot).  This
+will fix Windows builds with Visual Studio.
+---
+ win32/config-msvc.mak.in |  2 +-
+ win32/rsvg-rust.mak      | 14 +++++++-------
+ 2 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/win32/config-msvc.mak.in b/win32/config-msvc.mak.in
+index 0c2d3fbd..53591c72 100644
+--- a/win32/config-msvc.mak.in
++++ b/win32/config-msvc.mak.in
+@@ -89,7 +89,7 @@ TEST_DEP_LIBS =	\
+ 	fontconfig.lib
+ !endif
+ 
+-RSVG_INTERNAL_LIB = $(OUTDIR)\obj\rsvg_internals\$(RUST_TARGET)-pc-windows-msvc\$(CFG)\rsvg_internals.lib
++RSVG_INTERNAL_LIB = $(OUTDIR)\obj\rsvg_c_api\$(RUST_TARGET)-pc-windows-msvc\$(CFG)\rsvg_c_api.lib
+ 
+ LIBRSVG_DEP_LIBS =			\
+ 	$(RSVG_INTERNAL_LIB)		\
+diff --git a/win32/rsvg-rust.mak b/win32/rsvg-rust.mak
+index 22ff8c74..68a5ca6d 100644
+--- a/win32/rsvg-rust.mak
++++ b/win32/rsvg-rust.mak
+@@ -37,23 +37,23 @@ CARGO_CMD = $(CARGO) build $(CARGO_TARGET) --release
+ CARGO_CMD = $(CARGO) build $(CARGO_TARGET)
+ !endif
+ 
+-vs$(VSVER)\$(CFG)\$(PLAT)\obj\rsvg_internals\$(RUST_TARGET)-pc-windows-msvc\$(CFG)\rsvg_internals.lib:
++vs$(VSVER)\$(CFG)\$(PLAT)\obj\rsvg_c_api\$(RUST_TARGET)-pc-windows-msvc\$(CFG)\rsvg_c_api.lib:
+ 	@set PATH=%PATH%;%HOMEPATH%\.cargo\bin
+-	@set CARGO_TARGET_DIR=..\win32\vs$(VSVER)\$(CFG)\$(PLAT)\obj\rsvg_internals
++	@set CARGO_TARGET_DIR=win32\vs$(VSVER)\$(CFG)\$(PLAT)\obj\rsvg_c_api
+ 	@set GTK_LIB_DIR=$(LIBDIR);$(LIB)
+ 	$(RUSTUP_CMD)
+-	@cd ..\rsvg_internals
++	@cd ..
+ 	$(CARGO_CMD) --verbose
+-	@cd ..\win32
++	@cd win32
+ 	@set GTK_LIB_DIR=
+ 	@set CARGO_TARGET_DIR=
+ 
+ cargo-clean:
+ 	@set PATH=%PATH%;%HOMEPATH%\.cargo\bin
+-	@set CARGO_TARGET_DIR=..\win32\vs$(VSVER)\$(CFG)\$(PLAT)\obj\rsvg_internals
+-	@cd ..\rsvg_internals
++	@set CARGO_TARGET_DIR=win32\vs$(VSVER)\$(CFG)\$(PLAT)\obj\rsvg_c_api
++	@cd ..
+ 	@$(CARGO) clean
+-	@cd ..\win32
++	@cd win32
+ 	@set CARGO_TARGET_DIR=
+ 	
+ !else

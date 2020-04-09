@@ -1,0 +1,3 @@
+# update gdk_pixbuf pin for windows (version from conda-forge-pinning doesn't exist)
+gdk_pixbuf:  # [win]
+  - 2.38.2  # [win]
