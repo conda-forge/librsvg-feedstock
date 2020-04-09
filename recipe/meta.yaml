@@ -1,7 +1,11 @@
-{% set version = "2.46.4" %}
+{% set lib = "librsvg-2" %}  # [unix]
+{% set lib = "rsvg-2.0" %}  # [win]
+{% set name = "librsvg" %}
+{% set namever = "librsvg-2.0" %}
+{% set version = "2.48.3" %}
 {% set version_major = version.split('.', 1)[0] %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "b45b9ee3b64c58baaf800bcdff5fcd04d79930dba4c56e46e0d3b0aead40cc29" %}
+{% set sha256 = "902e8d8f4bd239843dd3a19306d9ecbb0dcf01b774c1f1d35f6dfba53be53b19" %}
 
 package:
   name: librsvg
@@ -16,7 +20,7 @@ source:
     - 0001-Visual-Studio-Fix-builds.patch  # [win]
 
 build:
-  number: 2
+  number: 0
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
@@ -63,7 +67,8 @@ test:
     - test -f $PREFIX/lib/{{ lib }}${SHLIB_EXT}  # [unix]
     - test -f `pkg-config --variable=libdir --dont-define-prefix {{ namever }}`/{{ lib }}${SHLIB_EXT}  # [unix]
     - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs{{ vs_major }}.dll exit 1  # [win]
-    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ namever }}`) do if not exist "%%a/bin/{{ lib }}-vs{{ vs_major }}.dll" exit 1  # [win]
+    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ namever }}`) do if not exist "%%a/bin/{{ lib }}-vs{{ vs_major
+      }}.dll" exit 1                                                                                                                                                              # [win]
     - if not exist %PREFIX%\\Library\\lib\\{{ lib }}.lib exit 1  # [win]
     - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ namever }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
 
