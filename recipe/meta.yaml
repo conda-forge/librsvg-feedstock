@@ -12,6 +12,8 @@ source:
   fn: {{ name }}-{{ version }}.tar.xz
   url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
   sha256: {{ sha256 }}
+  patches:
+    - add_rust_lto.patch
 
 build:
   number: 0
