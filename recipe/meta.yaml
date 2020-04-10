@@ -1,23 +1,17 @@
-{% set lib = "librsvg-2" %}  # [unix]
-{% set lib = "rsvg-2.0" %}  # [win]
 {% set name = "librsvg" %}
-{% set namever = "librsvg-2.0" %}
 {% set version = "2.48.3" %}
-{% set version_major = version.split('.', 1)[0] %}
+{% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
 {% set sha256 = "902e8d8f4bd239843dd3a19306d9ecbb0dcf01b774c1f1d35f6dfba53be53b19" %}
 
 package:
-  name: librsvg
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: librsvg-{{ version }}.tar.xz
-  url: http://ftp.gnome.org/pub/gnome/sources/librsvg/{{ version_majmin }}/librsvg-{{ version }}.tar.xz
+  fn: {{ name }}-{{ version }}.tar.xz
+  url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
   sha256: {{ sha256 }}
-  patches:
-    # can remove Visual-Studio-Fix-builds patch for librsvg 2.47.3+
-    - 0001-Visual-Studio-Fix-builds.patch  # [win]
 
 build:
   number: 0
@@ -57,31 +51,30 @@ test:
   commands:
     - rsvg-convert --version
 
-    {% set name = "librsvg" %}
-    {% set namever = "librsvg-2.0" %}
-    {% set lib = "librsvg-2" %}  # [unix]
-    {% set lib = "rsvg-2.0" %}  # [win]
+    {% set name_abi = name + "-" + abi_version %}
+    {% set lib = name + "-" + abi_version.split('.', 1)[0] %}  # [unix]
+    {% set lib = "rsvg-" + abi_version %}  # [win]
     {% set vs_major = dict(vs2015="14", vs2017="15", vs2019="16")[c_compiler] %}  # [win]
 
     # verify that libs get installed and can be located through pkg-config
     - test -f $PREFIX/lib/{{ lib }}${SHLIB_EXT}  # [unix]
-    - test -f `pkg-config --variable=libdir --dont-define-prefix {{ namever }}`/{{ lib }}${SHLIB_EXT}  # [unix]
+    - test -f `pkg-config --variable=libdir --dont-define-prefix {{ name_abi }}`/{{ lib }}${SHLIB_EXT}  # [unix]
     - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs{{ vs_major }}.dll exit 1  # [win]
-    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ namever }}`) do if not exist "%%a/bin/{{ lib }}-vs{{ vs_major }}.dll" exit 1  # [win]
+    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ name_abi }}`) do if not exist "%%a/bin/{{ lib }}-vs{{ vs_major }}.dll" exit 1  # [win]
     - if not exist %PREFIX%\\Library\\lib\\{{ lib }}.lib exit 1  # [win]
-    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ namever }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
+    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ name_abi }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
 
     # verify that gdk-pixbuf loader library gets installed
     - test -f $PREFIX/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.so  # [unix]
     - if not exist %PREFIX%\\Library\\lib\\gdk-pixbuf-2.0\\2.10.0\\loaders\\libpixbufloader-svg.dll exit 1  # [win]
 
     # verify that headers get installed
-    - test -f $PREFIX/include/{{ namever }}/{{ name }}/librsvg-features.h  # [unix]
-    - test -f $PREFIX/include/{{ namever }}/{{ name }}/rsvg-cairo.h  # [unix]
-    - test -f $PREFIX/include/{{ namever }}/{{ name }}/rsvg.h  # [unix]
-    - if not exist %PREFIX%\\Library\\include\\{{ namever }}\\{{ name }}\\librsvg-features.h exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\include\\{{ namever }}\\{{ name }}\\rsvg-cairo.h exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\include\\{{ namever }}\\{{ name }}\\rsvg.h exit 1  # [win]
+    - test -f $PREFIX/include/{{ name_abi }}/{{ name }}/librsvg-features.h  # [unix]
+    - test -f $PREFIX/include/{{ name_abi }}/{{ name }}/rsvg-cairo.h  # [unix]
+    - test -f $PREFIX/include/{{ name_abi }}/{{ name }}/rsvg.h  # [unix]
+    - if not exist %PREFIX%\\Library\\include\\{{ name_abi }}\\{{ name }}\\librsvg-features.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\{{ name_abi }}\\{{ name }}\\rsvg-cairo.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\{{ name_abi }}\\{{ name }}\\rsvg.h exit 1  # [win]
 
 about:
   home: https://wiki.gnome.org/Projects/LibRsvg
