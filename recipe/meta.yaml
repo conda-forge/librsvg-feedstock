@@ -62,8 +62,7 @@ test:
     - test -f $PREFIX/lib/{{ lib }}${SHLIB_EXT}  # [unix]
     - test -f `pkg-config --variable=libdir --dont-define-prefix {{ name_abi }}`/{{ lib }}${SHLIB_EXT}  # [unix]
     - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs{{ vs_major }}.dll exit 1  # [win]
-    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ name_abi }}`) do if not exist "%%a/bin/{{ lib }}-vs{{ vs_major
-      }}.dll" exit 1                                                                                                                                                               # [win]
+    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ name_abi }}`) do if not exist "%%a/bin/{{ lib }}-vs{{ vs_major }}.dll" exit 1  # [win]
     - if not exist %PREFIX%\\Library\\lib\\{{ lib }}.lib exit 1  # [win]
     - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ name_abi }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
 
