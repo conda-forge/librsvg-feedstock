@@ -8,6 +8,8 @@ configure_args=(
 )
 
 if [[ $(uname) == Darwin ]] ; then
+    # Workaround for https://gitlab.gnome.org/GNOME/librsvg/-/issues/545 ; should be removable soon.
+    export LDFLAGS="$LDFLAGS -lobjc"
 fi
 
 rm -f $PREFIX/lib/*.la # deps have busted files
