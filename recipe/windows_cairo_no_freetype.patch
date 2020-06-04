@@ -1,0 +1,28 @@
+At the moment, cairo-rs includes a few functions that assume that Cairo is built
+with FreeType. This isn't true for Cairo on Windows in conda-forge. Librsvg doesn't
+actually use the functions, and uses vendor bundling in its package, so we can just
+strip out the offenders. https://github.com/gtk-rs/cairo/issues/325
+
+diff --git a/vendor/cairo-rs/src/font/font_face.rs b/vendor/cairo-rs/src/font/font_face.rs
+index 54c07f4..e1305d1 100644
+--- a/vendor/cairo-rs/src/font/font_face.rs
++++ b/vendor/cairo-rs/src/font/font_face.rs
+@@ -93,18 +93,6 @@ impl FontFace {
+         unsafe { ffi::cairo_font_face_get_reference_count(self.to_raw_none()) as usize }
+     }
+ 
+-    pub fn get_synthesize(&self) -> FtSynthesize {
+-        unsafe { FtSynthesize::from(ffi::cairo_ft_font_face_get_synthesize(self.to_raw_none())) }
+-    }
+-
+-    pub fn set_synthesize(&self, synth_flags: FtSynthesize) {
+-        unsafe { ffi::cairo_ft_font_face_set_synthesize(self.to_raw_none(), synth_flags.into()) }
+-    }
+-
+-    pub fn unset_synthesize(&self, synth_flags: FtSynthesize) {
+-        unsafe { ffi::cairo_ft_font_face_unset_synthesize(self.to_raw_none(), synth_flags.into()) }
+-    }
+-
+     user_data_methods! {
+         ffi::cairo_font_face_get_user_data,
+         ffi::cairo_font_face_set_user_data,
