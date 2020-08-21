@@ -27,3 +27,5 @@ pin_run_as_build:
     max_pin: x.x
   pango:
     max_pin: x.x
+target_platform:
+- linux-ppc64le

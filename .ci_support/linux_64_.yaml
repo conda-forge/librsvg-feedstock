@@ -1,25 +1,21 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '10.9'
 c_compiler:
-- clang
+- gcc
 c_compiler_version:
-- '9'
+- '7'
 cairo:
 - '1.16'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
+docker_image:
+- condaforge/linux-anvil-comp7
 gdk_pixbuf:
 - 2.36.12
 glib:
 - '2.58'
 libxml2:
 - '2.9'
-macos_machine:
-- x86_64-apple-darwin13.4.0
-macos_min_version:
-- '10.9'
 pango:
 - '1.42'
 pin_run_as_build:
@@ -31,3 +27,5 @@ pin_run_as_build:
     max_pin: x.x
   pango:
     max_pin: x.x
+target_platform:
+- linux-64
