@@ -1,8 +1,8 @@
 {% set name = "librsvg" %}
-{% set version = "2.49.3" %}
+{% set version = "2.49.4" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "963b06f62dd5aa2e947e83b29dfc682d601e24f7c69eb0764304853cea22db96" %}
+{% set sha256 = "a7a66ac14827e6ca1e29cb757b022601108458d8cdf6cea22fa9699156b249f1" %}
 
 package:
   name: {{ name }}

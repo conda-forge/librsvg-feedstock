@@ -1,19 +1,17 @@
 c_compiler:
-- gcc
-c_compiler_version:
-- '7'
+- vs2017
 cairo:
 - '1.16'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
-docker_image:
-- condaforge/linux-anvil-comp7
 gdk_pixbuf:
-- 2.36.12
+- 2.38.2
 glib:
 - '2.58'
+libiconv:
+- '1.16'
 libxml2:
 - '2.9'
 pango:
@@ -23,7 +21,11 @@ pin_run_as_build:
     max_pin: x.x
   gdk_pixbuf:
     max_pin: x.x.x
+  libiconv:
+    max_pin: x.x
   libxml2:
     max_pin: x.x
   pango:
     max_pin: x.x
+target_platform:
+- win-64
