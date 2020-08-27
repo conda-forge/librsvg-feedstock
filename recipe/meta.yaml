@@ -17,7 +17,7 @@ source:
     - windows_cairo_freetype_workaround.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
@@ -37,7 +37,6 @@ requirements:
     - cairo
     - gdk-pixbuf
     - gobject-introspection  # [win]
-    - libcroco 0.6.*
     - pango
   run:
     - glib
@@ -45,7 +44,6 @@ requirements:
     - libxml2
     - cairo
     - gdk-pixbuf
-    - libcroco 0.6.*
     - pango
 
 test:
