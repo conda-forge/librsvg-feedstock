@@ -1,8 +1,8 @@
 {% set name = "librsvg" %}
-{% set version = "2.49.4" %}
+{% set version = "2.49.5" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "a7a66ac14827e6ca1e29cb757b022601108458d8cdf6cea22fa9699156b249f1" %}
+{% set sha256 = "daa64941bb4732bdf51b902a72c6e04063235cfce6986d910ba0759c76917795" %}
 
 package:
   name: {{ name }}
@@ -17,7 +17,7 @@ source:
     - windows_cairo_freetype_workaround.patch  # [win]
 
 build:
-  number: 1
+  number: 0
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
