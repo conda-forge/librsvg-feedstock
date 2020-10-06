@@ -1,8 +1,8 @@
 {% set name = "librsvg" %}
-{% set version = "2.50.0" %}
+{% set version = "2.50.1" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "b3fadba240f09b9c9898ab20cb7311467243e607cf8f928b7c5f842474ee3df4" %}
+{% set sha256 = "9bd9799322e06cf5db19b9f7afb728edac6efcf0110baafc44f0f96f45df9a09" %}
 
 package:
   name: {{ name }}
@@ -14,7 +14,6 @@ source:
   sha256: {{ sha256 }}
   patches:
     - add_rust_lto.patch
-    - windows_cairo_freetype_workaround.patch  # [win]
 
 build:
   number: 0
