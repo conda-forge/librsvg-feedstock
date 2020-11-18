@@ -28,6 +28,7 @@ requirements:
     - make  # [unix]
     - pkg-config
     - rust
+    - gnuconfig  # [unix]
     - {{ compiler('c') }}
   host:
     - glib
