@@ -27,7 +27,7 @@ requirements:
     - cmake  # [win]
     - make  # [unix]
     - pkg-config
-    - rust
+    - {{ compiler('rust') }}
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
   host:
