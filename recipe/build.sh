@@ -2,6 +2,8 @@
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* .
 
+export RUST_TARGET=$CARGO_BUILD_TARGET
+
 set -ex
 
 configure_args=(
@@ -9,7 +11,7 @@ configure_args=(
     --disable-Bsymbolic
 )
 
-if [[ $(uname) == Darwin ]] ; then
+if [[ $target_platform == osx-* ]] ; then
     # Workaround for https://gitlab.gnome.org/GNOME/librsvg/-/issues/545 ; should be removable soon.
     export LDFLAGS="$LDFLAGS -lobjc"
 fi
