@@ -16,7 +16,7 @@ source:
     - add_rust_lto.patch
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
@@ -30,6 +30,12 @@ requirements:
     - {{ compiler('rust') }}
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
+    - glib		# [host_platform != target_platform]
+    - libxml2   # [host_platform != target_platform]
+    - cairo     # [host_platform != target_platform]
+    - gdk-pixbuf  # [host_platform != target_platform]
+    - gobject-introspection  # [host_platform != target_platform]
+    - pango  # [host_platform != target_platform]
   host:
     - glib
     - libiconv  # [win]
