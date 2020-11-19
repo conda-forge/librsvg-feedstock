@@ -30,12 +30,12 @@ requirements:
     - {{ compiler('rust') }}
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
-    - glib		# [host_platform != target_platform]
-    - libxml2   # [host_platform != target_platform]
-    - cairo     # [host_platform != target_platform]
-    - gdk-pixbuf  # [host_platform != target_platform]
-    - gobject-introspection  # [host_platform != target_platform]
-    - pango  # [host_platform != target_platform]
+    - glib		# [build_platform != target_platform]
+    - libxml2   # [build_platform != target_platform]
+    - cairo     # [build_platform != target_platform]
+    - gdk-pixbuf  # [build_platform != target_platform]
+    - gobject-introspection  # [build_platform != target_platform]
+    - pango  # [build_platform != target_platform]
   host:
     - glib
     - libiconv  # [win]
