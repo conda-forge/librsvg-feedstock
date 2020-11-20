@@ -3,7 +3,7 @@ BUILD:
 c_compiler:
 - gcc
 c_compiler_version:
-- '7.5'
+- '7'
 cairo:
 - '1.16'
 cdt_arch:
@@ -15,9 +15,9 @@ channel_sources:
 channel_targets:
 - conda-forge main
 docker_image:
-- condaforge/linux-anvil-aarch64
+- quay.io/condaforge/linux-anvil-aarch64
 gdk_pixbuf:
-- 2.36.12
+- '2'
 glib:
 - '2.58'
 libxml2:
@@ -27,8 +27,6 @@ pango:
 pin_run_as_build:
   cairo:
     max_pin: x.x
-  gdk_pixbuf:
-    max_pin: x.x.x
   libxml2:
     max_pin: x.x
   pango:
