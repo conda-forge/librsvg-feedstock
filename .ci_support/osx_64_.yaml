@@ -3,7 +3,7 @@ MACOSX_DEPLOYMENT_TARGET:
 c_compiler:
 - clang
 c_compiler_version:
-- '10'
+- '11'
 cairo:
 - '1.16'
 channel_sources:
@@ -11,7 +11,7 @@ channel_sources:
 channel_targets:
 - conda-forge main
 gdk_pixbuf:
-- 2.36.12
+- '2'
 glib:
 - '2.58'
 libxml2:
@@ -23,8 +23,6 @@ pango:
 pin_run_as_build:
   cairo:
     max_pin: x.x
-  gdk_pixbuf:
-    max_pin: x.x.x
   libxml2:
     max_pin: x.x
   pango:
