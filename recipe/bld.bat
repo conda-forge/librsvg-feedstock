@@ -6,6 +6,9 @@ cd "win32"
 :: set pkg-config path so that host deps can be found
 set "PKG_CONFIG_PATH=%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig"
 
+:: set XDG_DATA_DIRS to find gir files
+set "XDG_DATA_DIRS=%XDG_DATA_DIRS%;%LIBRARY_PREFIX%\share"
+
 :: add include dirs to search path
 set "INCLUDE=%INCLUDE%;%LIBRARY_INC%\cairo;%LIBRARY_INC%\gdk-pixbuf-2.0"
 

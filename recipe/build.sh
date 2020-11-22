@@ -2,9 +2,14 @@
 
 set -ex
 
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
+export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share
+
 configure_args=(
     --prefix=$PREFIX
     --disable-Bsymbolic
+    --enable-pixbuf-loader=yes
+    --enable-introspection=yes
 )
 
 if [[ $(uname) == Darwin ]] ; then
