@@ -16,7 +16,7 @@ source:
     - add_rust_lto.patch
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
@@ -26,6 +26,7 @@ requirements:
   build:
     - cmake  # [win]
     - make  # [unix]
+    - gobject-introspection
     - pkg-config
     - rust
     - {{ compiler('c') }}
@@ -35,7 +36,6 @@ requirements:
     - libxml2
     - cairo
     - gdk-pixbuf
-    - gobject-introspection  # [win]
     - pango
   run:
     - glib
@@ -75,6 +75,10 @@ test:
     - if not exist %PREFIX%\\Library\\include\\{{ name_abi }}\\{{ name }}\\librsvg-features.h exit 1  # [win]
     - if not exist %PREFIX%\\Library\\include\\{{ name_abi }}\\{{ name }}\\rsvg-cairo.h exit 1  # [win]
     - if not exist %PREFIX%\\Library\\include\\{{ name_abi }}\\{{ name }}\\rsvg.h exit 1  # [win]
+
+    # test for gobject-introspection files
+    - test -f $PREFIX/lib/girepository-1.0/Rsvg-2.0.typelib  # [unix]
+    - if not exist %LIBRARY_LIB%\\girepository-1.0\\Rsvg-2.0.typelib exit 1  # [win]
 
 about:
   home: https://wiki.gnome.org/Projects/LibRsvg
