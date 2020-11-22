@@ -9,7 +9,7 @@ channel_targets:
 gdk_pixbuf:
 - '2'
 glib:
-- '2.58'
+- 2.64.6
 libiconv:
 - '1.16'
 libxml2:
