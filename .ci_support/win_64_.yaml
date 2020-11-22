@@ -7,7 +7,7 @@ channel_sources:
 channel_targets:
 - conda-forge main
 gdk_pixbuf:
-- 2.38.2
+- '2'
 glib:
 - '2.58'
 libiconv:
