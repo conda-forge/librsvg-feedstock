@@ -4,6 +4,14 @@ set -ex
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* .
 
+export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share
+
+configure_args=(
+    --disable-Bsymbolic
+    --enable-pixbuf-loader=yes
+    --enable-introspection=yes
+)
+
 if [[ $target_platform == osx-* ]] ; then
   # Workaround for https://gitlab.gnome.org/GNOME/librsvg/-/issues/545 ; should be removable soon.
   export LDFLAGS="$LDFLAGS -lobjc"
@@ -27,8 +35,9 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
     unset CFLAGS
     unset CPPFLAGS
     export host_alias=$build_alias
+    export PKG_CONFIG_PATH=$BUILD_PREFIX/lib/pkgconfig
 
-    ../configure --prefix=$BUILD_PREFIX  --disable-Bsymbolic
+    ../configure --prefix=$BUILD_PREFIX "${configure_args[@]}"
 
     # This script would generate the functions.txt and dump.xml and save them
     # This is loaded in the native build. We assume that the functions exported
@@ -36,19 +45,18 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
     export GI_CROSS_LAUNCHER=$PREFIX/libexec/gi-cross-launcher-save.sh
     make -j${CPU_COUNT}
     make install
-    rm -rf $PREFIX/bin/g-ir-scanner $PREFIX/bin/g-ir-compiler
-    ln -s $BUILD_PREFIX/bin/g-ir-scanner $PREFIX/bin/g-ir-scanner
-    ln -s $BUILD_PREFIX/bin/g-ir-compiler $PREFIX/bin/g-ir-compiler
-    rsync -ahvpiI $BUILD_PREFIX/lib/gobject-introspection/ $PREFIX/lib/gobject-introspection/
     popd
   )
   export GI_CROSS_LAUNCHER=$PREFIX/libexec/gi-cross-launcher-load.sh
 fi
 
+export PKG_CONFIG_PATH_FOR_BUILD=$BUILD_PREFIX/lib/pkgconfig
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
+
 export RUST_TARGET=$CARGO_BUILD_TARGET
 unset CARGO_BUILD_TARGET
 
-./configure --prefix=$PREFIX --disable-Bsymbolic || { cat config.log ; exit 1 ; }
+./configure --prefix=$PREFIX "${configure_args[@]}" || { cat config.log ; exit 1 ; }
 make -j$CPU_COUNT
 make install
 

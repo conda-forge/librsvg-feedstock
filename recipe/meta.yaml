@@ -1,8 +1,8 @@
 {% set name = "librsvg" %}
-{% set version = "2.50.1" %}
+{% set version = "2.50.2" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "9bd9799322e06cf5db19b9f7afb728edac6efcf0110baafc44f0f96f45df9a09" %}
+{% set sha256 = "6211f271ce4cd44a7318190d36712e9cea384a933d3e3570004edeb210a056d3" %}
 
 package:
   name: {{ name }}
@@ -26,15 +26,15 @@ requirements:
   build:
     - cmake  # [win]
     - make  # [unix]
+    - gobject-introspection
     - pkg-config
     - {{ compiler('rust') }}
-    - gnuconfig  # [unix]
     - {{ compiler('c') }}
+    - gnuconfig  # [unix]
     - glib		# [build_platform != target_platform]
     - libxml2   # [build_platform != target_platform]
     - cairo     # [build_platform != target_platform]
     - gdk-pixbuf  # [build_platform != target_platform]
-    - gobject-introspection  # [build_platform != target_platform]
     - pango  # [build_platform != target_platform]
   host:
     - glib
@@ -42,7 +42,6 @@ requirements:
     - libxml2
     - cairo
     - gdk-pixbuf
-    - gobject-introspection
     - pango
   run:
     - glib
@@ -83,6 +82,10 @@ test:
     - if not exist %PREFIX%\\Library\\include\\{{ name_abi }}\\{{ name }}\\rsvg-cairo.h exit 1  # [win]
     - if not exist %PREFIX%\\Library\\include\\{{ name_abi }}\\{{ name }}\\rsvg.h exit 1  # [win]
 
+    # test for gobject-introspection files
+    - test -f $PREFIX/lib/girepository-1.0/Rsvg-2.0.typelib  # [unix]
+    - if not exist %LIBRARY_LIB%\\girepository-1.0\\Rsvg-2.0.typelib exit 1  # [win]
+
 about:
   home: https://wiki.gnome.org/Projects/LibRsvg
   license: LGPL-2.1-or-later
@@ -91,5 +94,5 @@ about:
 
 extra:
   recipe-maintainers:
-    - jenzopr
     - pkgw
+    - tschoonj
