@@ -42,12 +42,12 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
     # This script would generate the functions.txt and dump.xml and save them
     # This is loaded in the native build. We assume that the functions exported
     # by glib are the same for the native and cross builds
-    export GI_CROSS_LAUNCHER=$PREFIX/libexec/gi-cross-launcher-save.sh
+    export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-save.sh
     make -j${CPU_COUNT}
     make install
     popd
   )
-  export GI_CROSS_LAUNCHER=$PREFIX/libexec/gi-cross-launcher-load.sh
+  export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
 fi
 
 export PKG_CONFIG_PATH_FOR_BUILD=$BUILD_PREFIX/lib/pkgconfig
