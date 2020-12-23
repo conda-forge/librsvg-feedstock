@@ -7,7 +7,7 @@ c_compiler_version:
 cairo:
 - '1.16'
 channel_sources:
-- conda-forge/label/rust_dev,conda-forge,https://conda-web.anaconda.org/conda-forge
+- conda-forge/label/rust_dev,conda-forge
 channel_targets:
 - conda-forge main
 gdk_pixbuf:
@@ -27,5 +27,7 @@ pin_run_as_build:
     max_pin: x.x
   pango:
     max_pin: x.x
+rust_compiler:
+- rust
 target_platform:
 - osx-arm64
