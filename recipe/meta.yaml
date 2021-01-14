@@ -16,7 +16,7 @@ source:
     - add_rust_lto.patch
 
 build:
-  number: 2
+  number: 3
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
@@ -38,17 +38,13 @@ requirements:
     - pango       # [build_platform != target_platform]
   host:
     - glib
+    - gettext
     - libiconv  # [win]
     - libxml2
     - cairo
     - gdk-pixbuf
     - pango
   run:
-    - glib
-    - libiconv  # [win]
-    - libxml2
-    - cairo
-    - gdk-pixbuf
     - pango
 
 test:
