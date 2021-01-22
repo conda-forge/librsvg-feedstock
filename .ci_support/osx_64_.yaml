@@ -13,7 +13,7 @@ channel_targets:
 gdk_pixbuf:
 - '2'
 glib:
-- '2.66'
+- '2'
 libxml2:
 - '2.9'
 macos_machine:
