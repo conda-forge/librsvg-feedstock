@@ -15,7 +15,7 @@ docker_image:
 gdk_pixbuf:
 - '2'
 glib:
-- '2.66'
+- '2'
 libxml2:
 - '2.9'
 pango:
@@ -31,3 +31,6 @@ rust_compiler:
 - rust
 target_platform:
 - linux-64
+zip_keys:
+- - cdt_name
+  - docker_image
