@@ -16,7 +16,7 @@ source:
     - add_rust_lto.patch
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
@@ -60,6 +60,7 @@ test:
 
     # verify that libs get installed and can be located through pkg-config
     - test -f $PREFIX/lib/{{ lib }}${SHLIB_EXT}  # [unix]
+    - test ! -f $PREFIX/lib/{{ lib }}.a  # [unix]
     - test -f `pkg-config --variable=libdir --dont-define-prefix {{ name_abi }}`/{{ lib }}${SHLIB_EXT}  # [unix]
     - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs{{ vs_major }}.dll exit 1  # [win]
     - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ name_abi }}`) do if not exist "%%a/bin/{{ lib }}-vs{{ vs_major }}.dll" exit 1  # [win]
@@ -68,6 +69,7 @@ test:
 
     # verify that gdk-pixbuf loader library gets installed
     - test -f $PREFIX/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.so  # [unix]
+    - test ! -f $PREFIX/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.a  # [unix]
     - if not exist %PREFIX%\\Library\\lib\\gdk-pixbuf-2.0\\2.10.0\\loaders\\libpixbufloader-svg.dll exit 1  # [win]
 
     # verify that headers get installed
