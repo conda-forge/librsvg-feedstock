@@ -8,6 +8,7 @@ export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share
 
 configure_args=(
     --disable-Bsymbolic
+    --disable-static
     --enable-pixbuf-loader=yes
     --enable-introspection=yes
 )
