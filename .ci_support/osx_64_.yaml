@@ -19,7 +19,7 @@ libxml2:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 pango:
-- '1.42'
+- '1.48'
 pin_run_as_build:
   cairo:
     max_pin: x.x
@@ -29,5 +29,7 @@ pin_run_as_build:
     max_pin: x.x
 rust_compiler:
 - rust
+rust_compiler_version:
+- '1.46'
 target_platform:
 - osx-64
