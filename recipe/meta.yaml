@@ -1,8 +1,8 @@
 {% set name = "librsvg" %}
-{% set version = "2.50.3" %}
+{% set version = "2.51.1" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "a4298a98e3a95fdd73c858c17d4dd018525fb09dbb13bbd668a0c2243989e958" %}
+{% set sha256 = "7d72c0de6cd1a767922328a214e346ce7e12fbfaf0a50de59d0e502532c1c75e" %}
 
 package:
   name: {{ name }}
@@ -16,7 +16,7 @@ source:
     - add_rust_lto.patch
 
 build:
-  number: 2
+  number: 0
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
