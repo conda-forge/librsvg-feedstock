@@ -36,16 +36,29 @@ requirements:
     - cairo       # [build_platform != target_platform]
     - gdk-pixbuf  # [build_platform != target_platform]
     - pango       # [build_platform != target_platform]
+    - {{ cdt('libxau-devel') }}          # [linux and aarch64]
+    - {{ cdt('xorg-x11-util-macros') }}  # [linux and aarch64]
+    - {{ cdt('xorg-x11-proto-devel') }}  # [linux and aarch64]
+    - {{ cdt('libx11-devel') }}          # [linux and aarch64]
+    - {{ cdt('libx11-common') }}         # [linux and aarch64]
+    - {{ cdt('libx11') }}                # [linux and aarch64]
+    - {{ cdt('libxext-devel') }}         # [linux and aarch64]
+    - {{ cdt('libxext') }}               # [linux and aarch64]
   host:
     - glib
-    - gettext
+    - gettext   # [unix and not (aarch64)]
     - libiconv  # [win]
     - libxml2
     - cairo
     - gdk-pixbuf
     - pango
   run:
+    - harfbuzz
+    - fontconfig
+    - freetype
+    - libpng
     - pango
+    - zlib
 
 test:
   requires:
