@@ -3,7 +3,7 @@ BUILD:
 c_compiler:
 - gcc
 c_compiler_version:
-- '9'
+- '10'
 cairo:
 - '1.16'
 cdt_arch:
