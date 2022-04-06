@@ -23,7 +23,7 @@ set ^"LIBRSVG_OPTIONS=^
   BINDIR="%BUILD_PREFIX%\Library\bin" ^
   INTROSPECTION=1 ^
   RUSTUP=echo ^
-  LIBINTL_LIB="intl.lib iconv.lib advapi32.lib" ^
+  LIBINTL_LIB="intl.lib iconv.lib advapi32.lib bcrypt.lib" ^
  ^"
 
 :: configure files
