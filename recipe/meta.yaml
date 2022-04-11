@@ -26,6 +26,8 @@ requirements:
   build:
     - cmake  # [win]
     - make  # [unix]
+    - docutils
+    - gi-docgen
     - gobject-introspection
     - pkg-config
     - {{ compiler('rust') }}
