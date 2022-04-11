@@ -4,7 +4,8 @@ set -ex
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* .
 
-export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share
+# $BUILD_PREFIX needed here so gi-docgen can find .gir files:
+export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share:$BUILD_PREFIX/share
 
 configure_args=(
     --disable-Bsymbolic
