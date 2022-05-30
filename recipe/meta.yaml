@@ -32,7 +32,9 @@ requirements:
     - pkg-config
     - {{ compiler('rust') }}
     - {{ compiler('c') }}
-    - gnuconfig  # [unix]
+    - patch       # [unix]
+    - m2-patch    # [win]
+    - gnuconfig   # [unix]
     - glib        # [build_platform != target_platform]
     - libxml2     # [build_platform != target_platform]
     - cairo       # [build_platform != target_platform]
