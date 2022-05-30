@@ -1,8 +1,8 @@
 {% set name = "librsvg" %}
-{% set version = "2.50.7" %}
+{% set version = "2.54.3" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "fffb61b08cd5282aaae147a02b305166a7426fad22a8b9427708f0f2fc426ebc" %}
+{% set sha256 = "66158f2ef46dde260026846c4da102e4a9dd4e5293010f30949c6cc26dd6efe8" %}
 
 package:
   name: {{ name }}
@@ -101,7 +101,11 @@ about:
   home: https://wiki.gnome.org/Projects/LibRsvg
   license: LGPL-2.1-or-later
   license_file: COPYING.LIB
+  license_family: LGPL
   summary: librsvg is a library to render SVG files using cairo.
+  dev_url: https://gitlab.gnome.org/GNOME/librsvg
+  doc_url: https://gnome.pages.gitlab.gnome.org/librsvg/doc/librsvg/index.html
+  doc_source_url: https://gitlab.gnome.org/GNOME/librsvg/-/tree/main/doc
 
 extra:
   recipe-maintainers:
