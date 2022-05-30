@@ -13,7 +13,9 @@ source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
   sha256: {{ sha256 }}
   patches:
-    - add_rust_lto.patch
+    - patches/0001_add_rust_lto.patch
+    - patches/0002_lower_pango_version.patch  # see https://gitlab.gnome.org/GNOME/librsvg/-/merge_requests/704
+    - patches/0003_fix_win_when_doc_not_built # see https://gitlab.gnome.org/GNOME/librsvg/-/merge_requests/703
 
 build:
   number: 0
