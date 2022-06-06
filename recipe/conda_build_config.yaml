@@ -1,4 +1,2 @@
-cdt_name:
-  - amzn2   # [linux and aarch64]
-gdk_pixbuf:
-  - 2
+cairo:
+  - 1.16
