@@ -1,2 +1,2 @@
-cairo:
-  - 1.16
+harfbuzz:
+  - 4.3.0
