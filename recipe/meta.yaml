@@ -22,13 +22,14 @@ build:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
     - {{ pin_subpackage('librsvg', max_pin='x') }}
-  missing_dso_whitelist:         # [linux and x86_64]
+  missing_dso_whitelist:         # [linux and (x86_64 or s390x)]
     - '**/libc.so.6'             # [linux and x86_64]
     - '**/libpthread.so.0'       # [linux and x86_64]
     - '**/libdl.so.2'            # [linux and x86_64]
     - '**/librt.so.1'            # [linux and x86_64]
     - '**/libm.so.6'             # [linux and x86_64]
     - '**/ld-linux-x86-64.so.2'  # [linux and x86_64]
+    - '**/ld64.so.1'             # [linux and s390x]
   ignore_run_exports:
     - pixman
 
