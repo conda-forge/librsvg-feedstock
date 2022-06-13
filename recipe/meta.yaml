@@ -1,8 +1,8 @@
 {% set name = "librsvg" %}
-{% set version = "2.54.3" %}
+{% set version = "2.54.4" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "66158f2ef46dde260026846c4da102e4a9dd4e5293010f30949c6cc26dd6efe8" %}
+{% set sha256 = "ea152a243f6a43c0e036a28c70de3fcbcdea5664c6811c78592bc229ecc24833" %}
 
 package:
   name: {{ name }}
@@ -14,7 +14,6 @@ source:
   sha256: {{ sha256 }}
   patches:
     - patches/0001_add_rust_lto.patch
-    - patches/0003_fix_win_when_doc_not_built.patch # [win]; see https://gitlab.gnome.org/GNOME/librsvg/-/merge_requests/703
 
 build:
   number: 0
@@ -68,7 +67,7 @@ requirements:
     - libxml2 >=2.9.0
     - cairo >=1.16.0
     - gdk-pixbuf >=2.20
-    - pango >=1.48.11
+    - pango >=1.46
     - libpng
     - libzip
     - freetype
@@ -79,7 +78,7 @@ requirements:
     - libxml2 >=2.9.0
     - cairo >=1.16.0
     - gdk-pixbuf >=2.20
-    - pango >=1.48.11
+    - pango >=1.46
     - libpng
     - zlib
     - freetype
