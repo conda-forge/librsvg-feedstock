@@ -31,12 +31,17 @@ build:
     - '**/ld64.so.1'             # [linux and s390x]
   ignore_run_exports:
     - pixman
+    - zlib      # [win]
+    - libpng    # [win]
+    - libiconv  # [win]
+    - harfbuzz  # [win]
+    - freetype  # [win]
 
 requirements:
   build:
     - cmake  # [win]
     - make  # [unix]
-    - gobject-introspection
+    - gobject-introspection # [not win]
     - pkg-config
     - {{ compiler('rust') }}
     - {{ compiler('c') }}
@@ -58,7 +63,7 @@ requirements:
     - {{ cdt('libxext') }}               # [linux]
     - {{ cdt('libxrender-devel') }}      # [linux]
   host:
-    - gobject-introspection
+    - gobject-introspection # [not win]
     - glib >=2.50.0
     - gettext   # [osx]
     - harfbuzz >=2.0.0
@@ -87,7 +92,8 @@ test:
   requires:
     - pkg-config
   commands:
-    - rsvg-convert --version
+    - rsvg-convert --version # [unix]
+    - rsvg-convert.exe --version # [win]
 
     {% set name_abi = name + "-" + abi_version %}
     {% set lib = name + "-" + abi_version.split('.', 1)[0] %}  # [unix]
@@ -118,7 +124,8 @@ test:
 
     # test for gobject-introspection files
     - test -f $PREFIX/lib/girepository-1.0/Rsvg-2.0.typelib  # [unix]
-    - if not exist %LIBRARY_LIB%\\girepository-1.0\\Rsvg-2.0.typelib exit 1  # [win]
+    # introspection is disabled for now on windows
+    #- if not exist %LIBRARY_LIB%\\girepository-1.0\\Rsvg-2.0.typelib exit 1  # [win]
 
 about:
   home: https://wiki.gnome.org/Projects/LibRsvg

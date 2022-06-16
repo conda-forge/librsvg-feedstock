@@ -19,16 +19,21 @@ if %errorlevel%==0 (
     powershell -Command "(gc %LIBRARY_LIB%\pkgconfig\gio-2.0.pc) -replace 'C:/ci_310/glib_1642686432177/_h_env/Library/lib/z.lib', '' | Out-File -encoding ASCII %LIBRARY_LIB%\pkgconfig\gio-2.0.pc"
 )
 
+IF NOT EXIST "%LIBRARY_PREFIX%\lib\png16.lib" (
+  :: the build looks for png16.lib
+  copy "%LIBRARY_PREFIX%"\lib\libpng16.lib "%LIBRARY_PREFIX%\lib\png16.lib"
+)
+
 :: build options
 :: (override rustup command so that the conda-forge rust installation is used)
 :: (add libiconv for linking against because glib needs its symbols)
 :: (abuse LIBINTL_LIB to add libs that are needed for linking RSVG tools)
 :: (override BINDIR to ensure the gobject-introspection tools are found)
+:: (introspection disabled: enable by setting INTROSPECTION=1 )
 set ^"LIBRSVG_OPTIONS=^
   CFG=release ^
   PREFIX="%LIBRARY_PREFIX%" ^
   BINDIR="%BUILD_PREFIX%\Library\bin" ^
-  INTROSPECTION=1 ^
   RUSTUP=echo ^
   LIBINTL_LIB="intl.lib iconv.lib advapi32.lib" ^
  ^"
