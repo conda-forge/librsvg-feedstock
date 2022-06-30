@@ -18,4 +18,3 @@ list(GET VERSION_LIST 2 LIBRSVG_MICRO_VERSION)
 
 configure_file(config-msvc.mak.in config-msvc.mak @ONLY)
 configure_file(config.h.win32.in config.h.win32 @ONLY)
-configure_file(../librsvg/librsvg-features.h.in ../librsvg/librsvg-features.h @ONLY)

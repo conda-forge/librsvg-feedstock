@@ -12,16 +12,28 @@ set "XDG_DATA_DIRS=%XDG_DATA_DIRS%;%LIBRARY_PREFIX%\share"
 :: add include dirs to search path
 set "INCLUDE=%INCLUDE%;%LIBRARY_INC%\cairo;%LIBRARY_INC%\gdk-pixbuf-2.0"
 
+findstr /m "C:/ci_310/glib_1642686432177/_h_env/Library/lib/z.lib" "%LIBRARY_LIB%\pkgconfig\gio-2.0.pc"
+if %errorlevel%==0 (
+    :: our current glib gio-2.0.pc has zlib dependency set as an absolute path. 
+    powershell -Command "(gc %LIBRARY_LIB%\pkgconfig\gio-2.0.pc) -replace 'Requires:', 'Requires: zlib,' | Out-File -encoding ASCII %LIBRARY_LIB%\pkgconfig\gio-2.0.pc"
+    powershell -Command "(gc %LIBRARY_LIB%\pkgconfig\gio-2.0.pc) -replace 'C:/ci_310/glib_1642686432177/_h_env/Library/lib/z.lib', '' | Out-File -encoding ASCII %LIBRARY_LIB%\pkgconfig\gio-2.0.pc"
+)
+
+IF NOT EXIST "%LIBRARY_PREFIX%\lib\png16.lib" (
+  :: the build looks for png16.lib
+  copy "%LIBRARY_PREFIX%"\lib\libpng16.lib "%LIBRARY_PREFIX%\lib\png16.lib"
+)
+
 :: build options
 :: (override rustup command so that the conda-forge rust installation is used)
 :: (add libiconv for linking against because glib needs its symbols)
 :: (abuse LIBINTL_LIB to add libs that are needed for linking RSVG tools)
 :: (override BINDIR to ensure the gobject-introspection tools are found)
+:: (introspection disabled: enable by setting INTROSPECTION=1 )
 set ^"LIBRSVG_OPTIONS=^
   CFG=release ^
   PREFIX="%LIBRARY_PREFIX%" ^
   BINDIR="%BUILD_PREFIX%\Library\bin" ^
-  INTROSPECTION=1 ^
   RUSTUP=echo ^
   LIBINTL_LIB="intl.lib iconv.lib advapi32.lib" ^
  ^"

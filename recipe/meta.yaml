@@ -1,8 +1,8 @@
 {% set name = "librsvg" %}
-{% set version = "2.50.7" %}
+{% set version = "2.54.4" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "fffb61b08cd5282aaae147a02b305166a7426fad22a8b9427708f0f2fc426ebc" %}
+{% set sha256 = "ea152a243f6a43c0e036a28c70de3fcbcdea5664c6811c78592bc229ecc24833" %}
 
 package:
   name: {{ name }}
@@ -13,58 +13,83 @@ source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
   sha256: {{ sha256 }}
   patches:
-    - add_rust_lto.patch
+    - patches/0001_add_rust_lto.patch
 
 build:
+  skip: true # [win]
   number: 0
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
     - {{ pin_subpackage('librsvg', max_pin='x') }}
+  missing_dso_whitelist:         # [linux]
+    - '**/libc.so.6'             # [linux]
+    - '**/libpthread.so.0'       # [linux]
+    - '**/libdl.so.2'            # [linux]
+    - '**/librt.so.1'            # [linux]
+    - '**/libm.so.6'             # [linux]
+    - '**/ld-linux-x86-64.so.2'  # [linux]
+    - '**/ld64.so.1'             # [linux]
+  ignore_run_exports:
+    - pixman
 
 requirements:
   build:
     - cmake  # [win]
     - make  # [unix]
-    - gobject-introspection
+    - gobject-introspection # [not win]
     - pkg-config
     - {{ compiler('rust') }}
     - {{ compiler('c') }}
-    - gnuconfig  # [unix]
-    - glib        # [build_platform != target_platform]
-    - libxml2     # [build_platform != target_platform]
-    - cairo       # [build_platform != target_platform]
-    - gdk-pixbuf  # [build_platform != target_platform]
-    - pango       # [build_platform != target_platform]
-    - {{ cdt('libxau-devel') }}          # [linux and aarch64]
-    - {{ cdt('xorg-x11-util-macros') }}  # [linux and aarch64]
-    - {{ cdt('xorg-x11-proto-devel') }}  # [linux and aarch64]
-    - {{ cdt('libx11-devel') }}          # [linux and aarch64]
-    - {{ cdt('libx11-common') }}         # [linux and aarch64]
-    - {{ cdt('libx11') }}                # [linux and aarch64]
-    - {{ cdt('libxext-devel') }}         # [linux and aarch64]
-    - {{ cdt('libxext') }}               # [linux and aarch64]
+    - autoconf    # [unix]
+    - automake    # [unix]
+    - libtool     # [unix]
+    - patch       # [unix]
+    - m2-patch    # [win]
+    - gnuconfig   # [unix]
+    - pthread-stubs                      # [linux]
+    - {{ cdt('libxau-devel') }}          # [linux]
+    - {{ cdt('libxau') }}                # [linux]
+    - {{ cdt('xorg-x11-util-macros') }}  # [linux]
+    - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
+    - {{ cdt('libx11-devel') }}          # [linux]
+    - {{ cdt('libx11-common') }}         # [linux]
+    - {{ cdt('libx11') }}                # [linux]
+    - {{ cdt('libxext-devel') }}         # [linux]
+    - {{ cdt('libxext') }}               # [linux]
+    - {{ cdt('libxrender-devel') }}      # [linux]
   host:
+    - gobject-introspection # [not win]
     - glib
-    - gettext   # [unix and not (aarch64)]
-    - libiconv  # [win]
+    - gettext   # [osx]
+    - harfbuzz
+    - fontconfig  # [not win]
+    - libiconv  # [win and osx]
     - libxml2
     - cairo
     - gdk-pixbuf
     - pango
+    - libpng
+    - libzip
+    - freetype
   run:
     - harfbuzz
-    - fontconfig
-    - freetype
-    - libpng
+    - fontconfig  # [not win]
+    - libiconv  # [win or osx]
+    - libxml2
+    - cairo
+    - gdk-pixbuf
     - pango
+    - libpng
     - zlib
+    - freetype
 
 test:
   requires:
     - pkg-config
   commands:
-    - rsvg-convert --version
+    - rsvg-convert --version # [unix]
+    - rsvg-convert.exe --version # [win]
 
     {% set name_abi = name + "-" + abi_version %}
     {% set lib = name + "-" + abi_version.split('.', 1)[0] %}  # [unix]
@@ -86,22 +111,27 @@ test:
     - if not exist %PREFIX%\\Library\\lib\\gdk-pixbuf-2.0\\2.10.0\\loaders\\libpixbufloader-svg.dll exit 1  # [win]
 
     # verify that headers get installed
-    - test -f $PREFIX/include/{{ name_abi }}/{{ name }}/librsvg-features.h  # [unix]
+    - test -f $PREFIX/include/{{ name_abi }}/{{ name }}/rsvg-features.h  # [unix]
     - test -f $PREFIX/include/{{ name_abi }}/{{ name }}/rsvg-cairo.h  # [unix]
     - test -f $PREFIX/include/{{ name_abi }}/{{ name }}/rsvg.h  # [unix]
-    - if not exist %PREFIX%\\Library\\include\\{{ name_abi }}\\{{ name }}\\librsvg-features.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\{{ name_abi }}\\{{ name }}\\rsvg-features.h exit 1  # [win]
     - if not exist %PREFIX%\\Library\\include\\{{ name_abi }}\\{{ name }}\\rsvg-cairo.h exit 1  # [win]
     - if not exist %PREFIX%\\Library\\include\\{{ name_abi }}\\{{ name }}\\rsvg.h exit 1  # [win]
 
     # test for gobject-introspection files
     - test -f $PREFIX/lib/girepository-1.0/Rsvg-2.0.typelib  # [unix]
-    - if not exist %LIBRARY_LIB%\\girepository-1.0\\Rsvg-2.0.typelib exit 1  # [win]
+    # introspection is disabled for now on windows
+    #- if not exist %LIBRARY_LIB%\\girepository-1.0\\Rsvg-2.0.typelib exit 1  # [win]
 
 about:
   home: https://wiki.gnome.org/Projects/LibRsvg
   license: LGPL-2.1-or-later
   license_file: COPYING.LIB
+  license_family: LGPL
   summary: librsvg is a library to render SVG files using cairo.
+  dev_url: https://gitlab.gnome.org/GNOME/librsvg
+  doc_url: https://gnome.pages.gitlab.gnome.org/librsvg/doc/librsvg/index.html
+  doc_source_url: https://gitlab.gnome.org/GNOME/librsvg/-/tree/main/doc
 
 extra:
   recipe-maintainers:
