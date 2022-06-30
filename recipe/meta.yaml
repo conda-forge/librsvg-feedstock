@@ -60,26 +60,26 @@ requirements:
     - {{ cdt('libxrender-devel') }}      # [linux]
   host:
     - gobject-introspection # [not win]
-    - glib >=2.50.0
+    - glib
     - gettext   # [osx]
-    - harfbuzz >=2.0.0
+    - harfbuzz
     - fontconfig  # [not win]
     - libiconv  # [win and osx]
-    - libxml2 >=2.9.0
-    - cairo >=1.16.0
-    - gdk-pixbuf >=2.20
-    - pango >=1.46
+    - libxml2
+    - cairo
+    - gdk-pixbuf
+    - pango
     - libpng
     - libzip
     - freetype
   run:
-    - harfbuzz >=2.0.0
+    - harfbuzz
     - fontconfig  # [not win]
     - libiconv  # [win or osx]
-    - libxml2 >=2.9.0
-    - cairo >=1.16.0
-    - gdk-pixbuf >=2.20
-    - pango >=1.46
+    - libxml2
+    - cairo
+    - gdk-pixbuf
+    - pango
     - libpng
     - zlib
     - freetype
