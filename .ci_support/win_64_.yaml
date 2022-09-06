@@ -1,5 +1,5 @@
 c_compiler:
-- vs2017
+- vs2019
 cairo:
 - '1.16'
 channel_sources:
