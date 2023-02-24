@@ -17,7 +17,7 @@ source:
 
 build:
   skip: true # [win]
-  number: 0
+  number: 1
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
@@ -30,8 +30,6 @@ build:
     - '**/libm.so.6'             # [linux]
     - '**/ld-linux-x86-64.so.2'  # [linux]
     - '**/ld64.so.1'             # [linux]
-  ignore_run_exports:
-    - pixman
 
 requirements:
   build:
@@ -63,7 +61,7 @@ requirements:
     - glib
     - gettext   # [osx]
     - harfbuzz
-    - fontconfig  # [not win]
+    - fontconfig
     - libiconv  # [win and osx]
     - libxml2
     - cairo
@@ -74,7 +72,7 @@ requirements:
     - freetype
   run:
     - harfbuzz
-    - fontconfig  # [not win]
+    - fontconfig
     - libiconv  # [win or osx]
     - libxml2
     - cairo
