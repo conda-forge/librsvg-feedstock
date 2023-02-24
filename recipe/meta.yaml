@@ -16,7 +16,7 @@ source:
     - patches/0001_add_rust_lto.patch
 
 build:
-  skip: true # [win]
+  skip: true # [win and vc<14]
   number: 1
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
