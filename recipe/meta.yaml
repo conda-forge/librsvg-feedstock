@@ -70,7 +70,9 @@ requirements:
     - libpng
     - libzip
     - freetype
+    - libdeflate
   run:
+    - libdeflate
     - harfbuzz
     - fontconfig
     - libiconv  # [win or osx]
