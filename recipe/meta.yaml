@@ -44,6 +44,8 @@ requirements:
     - {{ compiler('c') }}
     - autoconf    # [unix]
     - automake    # [unix]
+    - sed         # [unix]
+    - gawk        # [unix]
     - libtool     # [unix]
     - patch       # [unix]
     - m2-patch    # [win]

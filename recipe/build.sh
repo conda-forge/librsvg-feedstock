@@ -4,6 +4,11 @@ set -ex
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* .
 
+export SED=sed
+export EGREP="grep -E"
+export FGREP="grep -F"
+export GREP="grep"
+
 export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share:$BUILD_PREFIX/share
 
 configure_args=(
