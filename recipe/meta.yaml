@@ -61,19 +61,19 @@ requirements:
     - {{ cdt('libxrender-devel') }}      # [linux]
   host:
     - gobject-introspection # [not win]
-    - glib
+    - glib 2.*
     - gettext   # [osx]
-    - harfbuzz
-    - fontconfig
+    - harfbuzz 4.3.0
+    - fontconfig 2.14
     - libiconv  # [win and osx]
-    - libxml2
-    - cairo
-    - gdk-pixbuf
+    - libxml2 2.9
+    - cairo 1.16
+    - gdk-pixbuf 2.42.8
     - pango
-    - libpng
-    - libzip
-    - freetype
-    - libdeflate
+    - libpng 1.6
+    - libzip 1.8.0
+    - freetype 2.10
+    - libdeflate 1.17
   run:
     - libdeflate
     - harfbuzz
@@ -132,9 +132,14 @@ about:
   license_file: COPYING.LIB
   license_family: LGPL
   summary: librsvg is a library to render SVG files using cairo.
+  description: |
+    Librsvg is a small library to render Scalable Vector Graphics
+    (SVG), associated with the GNOME Project.  It renders
+    SVG files to Cairo surfaces.  Cairo is the 2D, antialiased
+    drawing library that GNOME uses to draw things to the screen or to
+    generate output for printing.
   dev_url: https://gitlab.gnome.org/GNOME/librsvg
   doc_url: https://gnome.pages.gitlab.gnome.org/librsvg/doc/librsvg/index.html
-  doc_source_url: https://gitlab.gnome.org/GNOME/librsvg/-/tree/main/doc
 
 extra:
   recipe-maintainers:
