@@ -9,6 +9,17 @@ export EGREP="grep -E"
 export FGREP="grep -F"
 export GREP="grep"
 
+if [[ ${target_platform} == linux-ppc64le ]]; then
+  # there are issues with CDTs and there HOST name ...
+  pushd "${BUILD_PREFIX}"
+  cp -Rn powerpc64le-conda-linux-gnu/* powerpc64le-conda_cos7-linux-gnu/. || true
+  cp -Rn powerpc64le-conda_cos7-linux-gnu/* powerpc64le-conda-linux-gnu/. || true
+  popd
+fi
+
+export PKG_CONFIG_PATH_FOR_BUILD=$BUILD_PREFIX/lib/pkgconfig
+export PKG_CONFIG_PATH=${PKG_CONFIG_PATH:-}:${PREFIX}/lib/pkgconfig:${PKG_CONFIG_PATH_FOR_BUILD}:$BUILD_PREFIX/$BUILD/sysroot/usr/lib64/pkgconfig:$BUILD_PREFIX/$BUILD/sysroot/usr/share/pkgconfig
+
 export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share:$BUILD_PREFIX/share
 
 configure_args=(

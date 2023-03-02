@@ -12,8 +12,8 @@ source:
   fn: {{ name }}-{{ version }}.tar.xz
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
   sha256: {{ sha256 }}
-  patches:
-    - patches/0001_add_rust_lto.patch
+  patches:  # [not win]
+    - patches/0001_add_rust_lto.patch  # [not win]
 
 build:
   skip: true # [win and vc<14]
@@ -39,9 +39,12 @@ requirements:
     - docutils
     - gi-docgen
     - binutils    # [linux]
-    - gobject-introspection  # [not win]
-    - {{ compiler('rust') }}
+    - gobject-introspection
+    - rust_win-64 1.64.0       # [win]
+    - rust        1.64.0       # [win]
+    - {{ compiler('rust') }}   # [not win]
     - {{ compiler('c') }}
+    - python 3.9
     - autoconf    # [unix]
     - automake    # [unix]
     - sed         # [unix]
@@ -62,7 +65,7 @@ requirements:
     - {{ cdt('libxext') }}               # [linux]
     - {{ cdt('libxrender-devel') }}      # [linux]
   host:
-    - gobject-introspection # [not win]
+    - gobject-introspection
     - glib 2.*
     - gettext   # [osx]
     - harfbuzz 4.3.0
