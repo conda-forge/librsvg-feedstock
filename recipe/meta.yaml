@@ -44,7 +44,6 @@ requirements:
     - rust        1.64.0       # [win]
     - {{ compiler('rust') }}   # [not win]
     - {{ compiler('c') }}
-    - python 3.9
     - autoconf    # [unix]
     - automake    # [unix]
     - sed         # [unix]
