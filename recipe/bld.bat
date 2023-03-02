@@ -4,6 +4,7 @@ setlocal EnableDelayedExpansion
 :: take care we don't use an accidential released rust config
 :: and later fall over it ...
 del /q %BUILD_PREFIX%\.cargo.win\config
+set MKDIR_P="mkdir"
 
 cd "win32"
 
