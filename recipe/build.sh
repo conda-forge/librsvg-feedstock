@@ -8,6 +8,9 @@ export SED=sed
 export EGREP="grep -E"
 export FGREP="grep -F"
 export GREP="grep"
+export MKDIR="mkdir"
+export MKDIR_P="mkdir -p"
+export INSTALL="install"
 
 if [[ ${target_platform} == linux-ppc64le ]]; then
   # there are issues with CDTs and there HOST name ...
