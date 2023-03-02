@@ -29,9 +29,6 @@ configure_args=(
     --enable-introspection=yes
 )
 
-export PKG_CONFIG_PATH_FOR_BUILD=$BUILD_PREFIX/lib/pkgconfig
-export PKG_CONFIG_PATH=${PKG_CONFIG_PATH:-}:${PREFIX}/lib/pkgconfig:$BUILD_PREFIX/$BUILD/sysroot/usr/lib64/pkgconfig:$BUILD_PREFIX/$BUILD/sysroot/usr/share/pkgconfig
-
 export RUST_TARGET=$CARGO_BUILD_TARGET
 unset CARGO_BUILD_TARGET
 
@@ -40,3 +37,4 @@ make -j$CPU_COUNT
 make install
 
 rm -rf $PREFIX/share/gtk-doc
+
