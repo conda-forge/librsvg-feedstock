@@ -50,7 +50,6 @@ requirements:
     - gawk        # [unix]
     - libtool     # [unix]
     - patch       # [unix]
-    - m2-patch    # [win]
     - gnuconfig   # [unix]
     - python 3.9  # [win]
     - pthread-stubs                      # [linux]
