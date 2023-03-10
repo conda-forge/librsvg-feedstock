@@ -14,7 +14,7 @@ export MKDIR_P="mkdir -p"
 where=$(which "install" 2>/dev/null || true)
 
 if [ -n "${where}" ]; then
-  ln -s ${where} ./install
+  ln -s -f ${where} ./install
 fi
 
 export INSTALL="install"

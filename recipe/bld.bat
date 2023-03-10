@@ -47,6 +47,10 @@ set ^"LIBRSVG_OPTIONS=^
   LIBINTL_LIB="intl.lib iconv.lib advapi32.lib" ^
  ^"
 
+set Python3_EXECUTABLE=%BUILD_PREFIX%\python
+set Python3_ROOT_DIR="%BUILD_PREFIX%\Library"
+dir %BUILD_PREFIX%\Library\bin\*
+
 :: configure files
 :: (use cmake just because it's convenient for replacing @VAR@ in files
 cmake -DPACKAGE_VERSION=%PKG_VERSION% -P "%RECIPE_DIR%\win_configure_files.cmake"

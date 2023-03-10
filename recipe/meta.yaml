@@ -52,6 +52,7 @@ requirements:
     - patch       # [unix]
     - m2-patch    # [win]
     - gnuconfig   # [unix]
+    - python 3.9  # [win]
     - pthread-stubs                      # [linux]
     - {{ cdt('libxau-devel') }}          # [linux]
     - {{ cdt('libxau') }}                # [linux]
