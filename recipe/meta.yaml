@@ -65,20 +65,21 @@ requirements:
     - {{ cdt('libxext') }}               # [linux]
     - {{ cdt('libxrender-devel') }}      # [linux]
   host:
-    - gobject-introspection
     - glib 2.*
     - gettext   # [osx]
     - harfbuzz 4.3.0
     - fontconfig 2.14
+    - freetype
     - libiconv  # [win and osx]
     - libxml2 2.9
     - cairo 1.16
-    - gdk-pixbuf 2.42.8
+    - gdk-pixbuf 2.42.10
     - pango
     - libpng 1.6
     - libzip 1.8.0
     - freetype 2.10
     - libdeflate 1.17
+    - zlib
   run:
     - libdeflate
     - harfbuzz

@@ -49,7 +49,6 @@ set ^"LIBRSVG_OPTIONS=^
 
 set Python3_EXECUTABLE=%BUILD_PREFIX%\python
 set Python3_ROOT_DIR="%BUILD_PREFIX%\Library"
-dir %BUILD_PREFIX%\Library\bin\*
 
 :: configure files
 :: (use cmake just because it's convenient for replacing @VAR@ in files
