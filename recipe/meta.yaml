@@ -12,12 +12,12 @@ source:
   fn: {{ name }}-{{ version }}.tar.xz
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
   sha256: {{ sha256 }}
-  patches:
-    - patches/0001_add_rust_lto.patch
+  patches:  # [not win]
+    - patches/0001_add_rust_lto.patch  # [not win]
 
 build:
-  skip: true # [win]
-  number: 0
+  skip: true # [win and vc<14]
+  number: 2
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
@@ -30,23 +30,28 @@ build:
     - '**/libm.so.6'             # [linux]
     - '**/ld-linux-x86-64.so.2'  # [linux]
     - '**/ld64.so.1'             # [linux]
-  ignore_run_exports:
-    - pixman
 
 requirements:
   build:
     - cmake  # [win]
     - make  # [unix]
-    - gobject-introspection # [not win]
     - pkg-config
-    - {{ compiler('rust') }}
+    - docutils
+    - gi-docgen
+    - binutils    # [linux]
+    - gobject-introspection
+    - rust_win-64 1.64.0       # [win]
+    - rust        1.64.0       # [win]
+    - {{ compiler('rust') }}   # [not win]
     - {{ compiler('c') }}
     - autoconf    # [unix]
     - automake    # [unix]
+    - sed         # [unix]
+    - gawk        # [unix]
     - libtool     # [unix]
     - patch       # [unix]
-    - m2-patch    # [win]
     - gnuconfig   # [unix]
+    - python 3.9  # [win]
     - pthread-stubs                      # [linux]
     - {{ cdt('libxau-devel') }}          # [linux]
     - {{ cdt('libxau') }}                # [linux]
@@ -59,22 +64,26 @@ requirements:
     - {{ cdt('libxext') }}               # [linux]
     - {{ cdt('libxrender-devel') }}      # [linux]
   host:
-    - gobject-introspection # [not win]
-    - glib
+    - gobject-introspection 1.*
+    - glib 2.*
     - gettext   # [osx]
-    - harfbuzz
-    - fontconfig  # [not win]
-    - libiconv  # [win and osx]
-    - libxml2
-    - cairo
-    - gdk-pixbuf
-    - pango
-    - libpng
-    - libzip
+    - harfbuzz 4.3.0
+    - fontconfig 2.14
     - freetype
+    - libiconv  # [win and osx]
+    - libxml2 2.9
+    - cairo 1.16
+    - gdk-pixbuf 2.42.10
+    - pango
+    - libpng 1.6
+    - libzip 1.8.0
+    - freetype 2.10
+    - libdeflate 1.17
+    - zlib
   run:
+    - libdeflate
     - harfbuzz
-    - fontconfig  # [not win]
+    - fontconfig
     - libiconv  # [win or osx]
     - libxml2
     - cairo
@@ -129,9 +138,14 @@ about:
   license_file: COPYING.LIB
   license_family: LGPL
   summary: librsvg is a library to render SVG files using cairo.
+  description: |
+    Librsvg is a small library to render Scalable Vector Graphics
+    (SVG), associated with the GNOME Project.  It renders
+    SVG files to Cairo surfaces.  Cairo is the 2D, antialiased
+    drawing library that GNOME uses to draw things to the screen or to
+    generate output for printing.
   dev_url: https://gitlab.gnome.org/GNOME/librsvg
   doc_url: https://gnome.pages.gitlab.gnome.org/librsvg/doc/librsvg/index.html
-  doc_source_url: https://gitlab.gnome.org/GNOME/librsvg/-/tree/main/doc
 
 extra:
   recipe-maintainers:
