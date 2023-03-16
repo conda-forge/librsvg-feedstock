@@ -3,9 +3,9 @@ MACOSX_DEPLOYMENT_TARGET:
 c_compiler:
 - clang
 c_compiler_version:
-- '13'
+- '14'
 cairo:
-- '1.16'
+- '1'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -15,18 +15,11 @@ gdk_pixbuf:
 glib:
 - '2'
 libxml2:
-- '2.9'
+- '2.10'
 macos_machine:
 - arm64-apple-darwin20.0.0
 pango:
 - '1.50'
-pin_run_as_build:
-  cairo:
-    max_pin: x.x
-  libxml2:
-    max_pin: x.x
-  pango:
-    max_pin: x.x
 rust_compiler:
 - rust
 target_platform:
