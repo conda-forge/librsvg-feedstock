@@ -144,7 +144,7 @@ about:
     drawing library that GNOME uses to draw things to the screen or to
     generate output for printing.
   dev_url: https://gitlab.gnome.org/GNOME/librsvg
-  doc_url: https://gnome.pages.gitlab.gnome.org/librsvg/doc/librsvg/index.html
+  doc_url: https://gnome.pages.gitlab.gnome.org/librsvg/doc/rsvg/index.html
 
 extra:
   recipe-maintainers:
