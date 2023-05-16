@@ -3,7 +3,7 @@ BUILD:
 c_compiler:
 - gcc
 c_compiler_version:
-- '11'
+- '12'
 cairo:
 - '1'
 cdt_arch:
@@ -21,7 +21,7 @@ gdk_pixbuf:
 glib:
 - '2'
 libxml2:
-- '2.10'
+- '2.11'
 pango:
 - '1.50'
 rust_compiler:
