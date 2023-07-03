@@ -23,6 +23,7 @@ set ^"LIBRSVG_OPTIONS=^
   BINDIR="%BUILD_PREFIX%\Library\bin" ^
   INTROSPECTION=1 ^
   RUSTUP=echo ^
+  CARGO=cargo ^
   LIBINTL_LIB="intl.lib iconv.lib advapi32.lib bcrypt.lib" ^
   CARGO_CMD="cargo --locked build --release $(MANIFEST_PATH_FLAG) $(CARGO_TARGET_DIR_FLAG)" ^
  ^"
