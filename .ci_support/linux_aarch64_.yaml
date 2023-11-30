@@ -21,7 +21,7 @@ gdk_pixbuf:
 glib:
 - '2'
 libxml2:
-- '2.11'
+- '2.12'
 pango:
 - '1.50'
 rust_compiler:
