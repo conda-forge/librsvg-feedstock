@@ -58,7 +58,7 @@ test:
     {% set name_abi = name + "-" + abi_version %}
     {% set lib = name + "-" + abi_version.split('.', 1)[0] %}  # [unix]
     {% set lib = "rsvg-" + abi_version %}  # [win]
-    {% set vs_major = dict(vs2015="14", vs2017="15", vs2019="16")[c_compiler] %}  # [win]
+    {% set vs_major = dict(vs2015="14", vs2017="15", vs2019="16").get(c_compiler, "XX") %}  # [win]
 
     # verify that libs get installed and can be located through pkg-config
     - test -f $PREFIX/lib/{{ lib }}${SHLIB_EXT}  # [unix]
