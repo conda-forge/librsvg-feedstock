@@ -38,7 +38,6 @@ requirements:
     - pango       # [build_platform != target_platform]
   host:
     - glib
-    - gettext
     - libiconv  # [win]
     - libxml2
     - cairo
