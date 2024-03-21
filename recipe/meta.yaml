@@ -2,21 +2,19 @@
 {% set version = "2.56.3" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "5a328048a02d014645cd27f61140f4e0b11280fb2c7f2a21864fe0c59ac1ce88" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.xz
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: {{ sha256 }}
+  sha256: 5a328048a02d014645cd27f61140f4e0b11280fb2c7f2a21864fe0c59ac1ce88
   patches:
     - add_rust_lto.patch
 
 build:
-  number: 1
+  number: 2
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
