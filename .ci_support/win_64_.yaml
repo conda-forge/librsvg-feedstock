@@ -13,7 +13,7 @@ glib:
 libiconv:
 - '1'
 libxml2:
-- '2.12'
+- '2'
 pango:
 - '1.50'
 rust_compiler:
