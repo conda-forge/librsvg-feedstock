@@ -32,6 +32,7 @@ requirements:
     - pkg-config
     - {{ compiler('rust') }}
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - gnuconfig  # [unix]
     - glib        # [build_platform != target_platform]
     - libxml2     # [build_platform != target_platform]
