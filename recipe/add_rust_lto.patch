@@ -1,14 +1,14 @@
 diff --git a/Cargo.toml b/Cargo.toml
-index 2c52ea1..bc4a6ce 100644
+index 0886663..bd50ef5 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -5,6 +5,9 @@ authors = ["Federico Mena Quintero <federico@gnome.org>"]
- build = "build.rs"
- edition = "2018"
+@@ -14,6 +14,9 @@ keywords = [ "svg", "cairo" ]
+ edition = "2021"
+ rust-version = "1.70.0"
  
 +[profile.release]
 +lto = true
 +
- [package.metadata.system-deps]
- cairo-pdf = { version = "1.16", optional = true }
- cairo-ps = { version = "1.16", optional = true }
+ [profile.overflow]
+ inherits = "release"
+ overflow-checks = true

@@ -1,8 +1,8 @@
 {% set name = "librsvg" %}
-{% set version = "2.56.3" %}
+{% set version = "2.58.0" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "5a328048a02d014645cd27f61140f4e0b11280fb2c7f2a21864fe0c59ac1ce88" %}
+{% set sha256 = "d7c444a926406b59790be0deae196e18ed26059da573fa1aa9ec9ca7658a559c" %}
 
 package:
   name: {{ name }}
@@ -16,7 +16,7 @@ source:
     - add_rust_lto.patch
 
 build:
-  number: 1
+  number: 0
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
@@ -32,6 +32,7 @@ requirements:
     - pkg-config
     - {{ compiler('rust') }}
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - gnuconfig  # [unix]
     - glib        # [build_platform != target_platform]
     - libxml2     # [build_platform != target_platform]
@@ -58,7 +59,7 @@ test:
     {% set name_abi = name + "-" + abi_version %}
     {% set lib = name + "-" + abi_version.split('.', 1)[0] %}  # [unix]
     {% set lib = "rsvg-" + abi_version %}  # [win]
-    {% set vs_major = dict(vs2015="14", vs2017="15", vs2019="16").get(c_compiler, "XX") %}  # [win]
+    {% set vs_major = dict(vs2015="14", vs2017="15", vs2019="16", vs2022="17").get(c_compiler, "XX") %}  # [win]
 
     # verify that libs get installed and can be located through pkg-config
     - test -f $PREFIX/lib/{{ lib }}${SHLIB_EXT}  # [unix]
