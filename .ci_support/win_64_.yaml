@@ -12,8 +12,6 @@ gdk_pixbuf:
 - '2'
 glib:
 - '2'
-libiconv:
-- '1'
 libxml2:
 - '2'
 pango:

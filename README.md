@@ -199,4 +199,5 @@ Feedstock Maintainers
 
 * [@pkgw](https://github.com/pkgw/)
 * [@tschoonj](https://github.com/tschoonj/)
+* [@xhochy](https://github.com/xhochy/)
 

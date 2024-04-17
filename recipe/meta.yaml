@@ -2,21 +2,19 @@
 {% set version = "2.58.0" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
-{% set sha256 = "d7c444a926406b59790be0deae196e18ed26059da573fa1aa9ec9ca7658a559c" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.xz
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: {{ sha256 }}
+  sha256: d7c444a926406b59790be0deae196e18ed26059da573fa1aa9ec9ca7658a559c
   patches:
     - add_rust_lto.patch
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
@@ -30,7 +28,7 @@ requirements:
     - gi-docgen
     - gobject-introspection
     - pkg-config
-    - {{ compiler('rust') }}
+    - {{ compiler('rust') }} >=1.77
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
     - gnuconfig  # [unix]
@@ -41,14 +39,13 @@ requirements:
     - pango       # [build_platform != target_platform]
   host:
     - glib
-    - gettext
-    - libiconv  # [win]
     - libxml2
     - cairo
     - gdk-pixbuf
     - pango
-  run:
-    - pango
+    - harfbuzz  # [linux]
+    - libpng    # [linux]
+    - freetype  # [linux]
 
 test:
   requires:
@@ -97,3 +94,4 @@ extra:
   recipe-maintainers:
     - pkgw
     - tschoonj
+    - xhochy 
