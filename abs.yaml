@@ -3,3 +3,8 @@ build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
 
+aggregate_branch: libxml_2.13.1
+
+channels:
+  - https://staging.continuum.io/prefect/fs/fontconfig-feedstock/pr11/5221e48
+  - https://staging.continuum.io/prefect/fs/gettext-feedstock/pr6/c7dfc15

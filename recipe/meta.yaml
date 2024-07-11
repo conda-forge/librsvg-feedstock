@@ -16,7 +16,7 @@ source:
 
 build:
   skip: true # [win and vc<14]
-  number: 3
+  number: 4
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
@@ -70,7 +70,7 @@ requirements:
     - fontconfig 2.14
     - freetype
     - libiconv  # [win and osx]
-    - libxml2 2.10
+    - libxml2 {{ libxml2 }}
     - cairo 1.16
     - gdk-pixbuf 2.42.10
     - pango
