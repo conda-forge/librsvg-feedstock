@@ -1,5 +1,5 @@
 {% set name = "librsvg" %}
-{% set version = "2.58.1" %}
+{% set version = "2.58.2" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
 
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: 3728596290a8576d305d06ec8afdf473516feee9dff22e03235eac433d56824e
+  sha256: 18e9d70c08cf25f50d610d6d5af571561d67cf4179f962e04266475df6e2e224
   patches:
     - add_rust_lto.patch
 
