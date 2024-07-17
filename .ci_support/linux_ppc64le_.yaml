@@ -29,7 +29,7 @@ libpng:
 libxml2:
 - '2'
 pango:
-- '1.50'
+- '1'
 rust_compiler:
 - rust
 target_platform:
