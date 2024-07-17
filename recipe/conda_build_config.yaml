@@ -1,6 +1,4 @@
 c_compiler:        # [win]
   - vs2022         # [win]
-c_stdlib_version:  # [osx and x86]
-  - '10.12'        # [osx and x86]
 gdk_pixbuf:
   - 2
