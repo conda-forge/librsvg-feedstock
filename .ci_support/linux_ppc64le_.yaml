@@ -23,13 +23,13 @@ gdk_pixbuf:
 glib:
 - '2'
 harfbuzz:
-- '8'
+- '9'
 libpng:
 - '1.6'
 libxml2:
 - '2'
 pango:
-- '1.50'
+- '1'
 rust_compiler:
 - rust
 target_platform:
