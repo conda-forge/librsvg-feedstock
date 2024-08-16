@@ -1,5 +1,5 @@
 {% set name = "librsvg" %}
-{% set version = "2.58.2" %}
+{% set version = "2.58.3" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
 
@@ -9,12 +9,12 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: 18e9d70c08cf25f50d610d6d5af571561d67cf4179f962e04266475df6e2e224
+  sha256: 49f29a0a92f4c2d19a2cb41e96ab2fce7eb5bde41850c8a914fcf655e3110944
   patches:
     - add_rust_lto.patch
 
 build:
-  number: 1
+  number: 0
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
