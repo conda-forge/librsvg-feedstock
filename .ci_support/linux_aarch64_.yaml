@@ -30,6 +30,8 @@ harfbuzz:
 - '9'
 libpng:
 - '1.6'
+librsvg:
+- '2'
 libxml2:
 - '2'
 pango:
