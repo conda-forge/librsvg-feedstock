@@ -12,6 +12,8 @@ gdk_pixbuf:
 - '2'
 glib:
 - '2'
+librsvg:
+- '2'
 libxml2:
 - '2'
 pango:
