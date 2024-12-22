@@ -8,10 +8,14 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
+expat:
+- '2'
 gdk_pixbuf:
 - '2'
 glib:
 - '2'
+liblzma_devel:
+- '5'
 librsvg:
 - '2'
 libxml2:
@@ -22,3 +26,5 @@ rust_compiler:
 - rust
 target_platform:
 - win-64
+zlib:
+- '1'
