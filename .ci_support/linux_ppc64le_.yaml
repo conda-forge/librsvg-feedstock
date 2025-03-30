@@ -25,7 +25,7 @@ gdk_pixbuf:
 glib:
 - '2'
 harfbuzz:
-- '10'
+- '11'
 liblzma_devel:
 - '5'
 libpng:
