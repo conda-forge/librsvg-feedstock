@@ -19,7 +19,7 @@ liblzma_devel:
 librsvg:
 - '2'
 libxml2:
-- '2'
+- '2.13'
 pango:
 - '1'
 rust_compiler:
