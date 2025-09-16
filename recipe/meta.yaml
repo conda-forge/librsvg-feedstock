@@ -25,6 +25,8 @@ build:
     - libexpat
     - liblzma
     - libzlib
+    # Part of libxml2-16
+    - libxml2
 
 requirements:
   build:
