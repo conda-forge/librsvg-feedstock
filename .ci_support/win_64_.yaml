@@ -18,6 +18,8 @@ liblzma_devel:
 - '5'
 librsvg:
 - '2'
+libxml2:
+- '2.14'
 libxml2_devel:
 - '2.14'
 pango:
