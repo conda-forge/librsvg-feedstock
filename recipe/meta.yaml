@@ -19,14 +19,12 @@ build:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
     - {{ pin_subpackage('librsvg', max_pin='x') }}
-  ignore_run_exports:
-    # these are the actual libraries associated with the metapackages
-    # that we needed to pull in for devel files below:
-    - libexpat
-    - liblzma
-    - libzlib
-    # Part of libxml2-16
-    - libxml2
+  ignore_run_exports_from:
+    # Devel packages that we don't depend on directly:
+    - expat
+    - liblzma-devel
+    - libxml2-devel
+    - zlib
 
 requirements:
   build:
