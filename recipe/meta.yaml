@@ -23,8 +23,9 @@ build:
     # Devel packages that we don't depend on directly:
     - expat
     - liblzma-devel
-    - libxml2-devel
     - zlib
+  ignore_run_exports:
+    - libxml2  # ignoring "from" libxml2-devel doesn't work, weirdly? See #128
 
 requirements:
   build:
