@@ -14,17 +14,18 @@ source:
     - add_rust_lto.patch
 
 build:
-  number: 3
+  number: 4
   run_exports:
     # Looks good but no new info after 2.43 so keeping it x.x for safety.
     # https://abi-laboratory.pro/?view=timeline&l=librsvg
     - {{ pin_subpackage('librsvg', max_pin='x') }}
+  ignore_run_exports_from:
+    # Devel packages that we don't depend on directly:
+    - expat
+    - liblzma-devel
+    - zlib
   ignore_run_exports:
-    # these are the actual libraries associated with the metapackages
-    # that we needed to pull in for devel files below:
-    - libexpat
-    - liblzma
-    - libzlib
+    - libxml2  # ignoring "from" libxml2-devel doesn't work, weirdly? See #128
 
 requirements:
   build:
@@ -39,7 +40,7 @@ requirements:
     - {{ stdlib('c') }}
     - gnuconfig  # [unix]
     - glib            # [build_platform != target_platform]
-    - libxml2         # [build_platform != target_platform]
+    - libxml2-devel         # [build_platform != target_platform]
     - cairo           # [build_platform != target_platform]
     - gdk-pixbuf      # [build_platform != target_platform]
     - pango           # [build_platform != target_platform]
@@ -50,7 +51,7 @@ requirements:
     - zlib            # [build_platform != target_platform]
   host:
     - glib
-    - libxml2
+    - libxml2-devel
     - cairo
     - gdk-pixbuf
     - pango
