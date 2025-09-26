@@ -23,7 +23,6 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == 1 ]]; then
   (
     unset CARGO_BUILD_TARGET
     mkdir -p native-build
-    pushd native-build >/dev/null
 
     export CC=$CC_FOR_BUILD
     export AR="$($CC_FOR_BUILD -print-prog-name=ar)"
@@ -50,7 +49,11 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == 1 ]]; then
     export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-save.sh
     ninja -C native-build -j${CPU_COUNT}
     ninja -C native-build install
-    popd >/dev/null
+
+    # Store generated introspection information
+    mkdir -p introspection/lib introspection/share
+    cp -ap $BUILD_PREFIX/lib/girepository-1.0 introspection/lib
+    cp -ap $BUILD_PREFIX/share/gir-1.0 introspection/share
   )
   export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
   export MESON_ARGS="${MESON_ARGS} -Dintrospection=disabled"
