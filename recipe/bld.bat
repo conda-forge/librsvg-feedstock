@@ -34,7 +34,7 @@ cd forgebuild
 
 meson setup ^
   --buildtype=release ^
-  -prefix=%LIBRARY_PREFIX_M% ^
+  --prefix=%LIBRARY_PREFIX_M% ^
   --backend=ninja ^
   -Dintrospection=enabled ^
   -Dpixbuf=enabled ^
