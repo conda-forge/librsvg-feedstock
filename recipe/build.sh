@@ -64,13 +64,12 @@ fi
 export PKG_CONFIG_PATH_FOR_BUILD=$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 
-export RUST_TARGET=$CARGO_BUILD_TARGET
-unset CARGO_BUILD_TARGET
-
 meson setup builddir \
   ${MESON_ARGS} \
   "${meson_config_args[@]}" \
   --prefix="$PREFIX" \
+  -Dtests=false \
+  -Dtriplet=${CARGO_BUILD_TARGET} \
   -Dlocalstatedir="$PREFIX/var" \
   || { cat builddir/meson-logs/meson-log.txt ; exit 1 ; }
 
