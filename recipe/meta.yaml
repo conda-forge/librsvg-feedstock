@@ -12,6 +12,7 @@ source:
   sha256: 0b6ffccdf6e70afc9876882f5d2ce9ffcf2c713cbaaf1ad90170daa752e1eec3
   patches:
     - add_rust_lto.patch
+    - windows_gir.patch  # [win]
 
 build:
   number: 0

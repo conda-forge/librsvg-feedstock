@@ -7,7 +7,7 @@ FOR /F "delims=" %%i IN ('cygpath.exe -m "%LIBRARY_PREFIX%"') DO set "LIBRARY_PR
 set "PKG_CONFIG_PATH=%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig"
 
 :: set XDG_DATA_DIRS to find gir files
-set "XDG_DATA_DIRS=%XDG_DATA_DIRS%;%LIBRARY_PREFIX%\share"
+set "XDG_DATA_DIRS=%LIBRARY_PREFIX%\share"
 
 :: :: add include dirs to search path
 :: set "INCLUDE=%INCLUDE%;%LIBRARY_INC%\cairo;%LIBRARY_INC%\gdk-pixbuf-2.0"
@@ -39,6 +39,7 @@ meson setup ^
   -Dintrospection=enabled ^
   -Dpixbuf=enabled ^
   -Dpixbuf-loader=enabled ^
+  -Dcfextragirdir=%LIBRARY_PREFIX%\share\gir-1.0 ^
   ..
 if errorlevel 1 exit 1
 
