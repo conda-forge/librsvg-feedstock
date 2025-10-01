@@ -1,0 +1,24 @@
+diff --git a/meson_options.txt b/meson_options.txt
+index a044ae6..d67a668 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -52,3 +52,5 @@ option('rustc-version',
+        type: 'string',
+        value: '',
+        description: 'Installed RustC version to use (if needed; currently only supported for Windows builds)')
++
++option('cfextragirdir', type: 'string', value: '', description: 'conda-forge build helper')
+\ No newline at end of file
+diff --git a/doc/meson.build b/doc/meson.build
+index 8af39ca..49b9895 100644
+--- a/doc/meson.build
++++ b/doc/meson.build
+@@ -23,6 +23,8 @@ if build_gir.allowed()
+             meson.current_source_dir(),
+             '--add-include-path',
+             girepository_folder,
++            '--add-include-path',
++            get_option('cfextragirdir'),
+             '--output-dir',
+             '@OUTDIR@',
+             '@INPUT1@'
