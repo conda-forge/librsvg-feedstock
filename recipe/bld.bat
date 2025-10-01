@@ -49,8 +49,17 @@ if errorlevel 1 exit 1
 ninja install
 if errorlevel 1 exit 1
 
-:: don't include debug symbols
-del %LIBRARY_BIN%\rsvg-*.pdb
+:: Copy libraries to be named consistently with the Autotools builds.
+:: This way people can migrate to the new names, but we don't break
+:: packages that still depend on the old ones.
+copy %LIBRARY_BIN%\rsvg-2-2.dll %LIBRARY_BIN%\rsvg-2.0-vs%VS_MAJOR%.dll
 if errorlevel 1 exit 1
-del %LIBRARY_LIB%\gdk-pixbuf-2.0\2.10.0\loaders\libpixbufloader_svg.pdb
+copy %LIBRARY_LIB%\rsvg-2.lib %LIBRARY_LIB%\rsvg-2.0.lib
 if errorlevel 1 exit 1
+
+:: This may not be necessary? Haven't checked what gdk-pixbuf looks
+:: for on Windows.
+move %LIBRARY_LIB%\gdk-pixbuf-2.0\2.10.0\loaders\pixbufloader_svg.dll %LIBRARY_LIB%\gdk-pixbuf-2.0\2.10.0\loaders\libpixbufloader_svg.dll
+if errorlevel 1 exit 1
+
+rmdir /s /q %LIBRARY_PREFIX%\share\doc
