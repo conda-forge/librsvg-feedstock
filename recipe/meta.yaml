@@ -23,6 +23,7 @@ build:
   ignore_run_exports_from:
     # Devel packages that we don't depend on directly:
     - expat
+    - fontconfig  # [win]
     - freetype
     - liblzma-devel
     - libpng
