@@ -24,7 +24,6 @@ build:
     # Devel packages that we don't depend on directly:
     - expat
     - freetype
-    - harfbuzz
     - liblzma-devel
     - libpng
     - zlib
@@ -59,9 +58,10 @@ requirements:
     - cairo
     - gdk-pixbuf
     - pango
-    - harfbuzz  # [linux]
+    - harfbuzz
     - libpng    # [linux]
-    - freetype  # [linux]
+    - freetype
+    - fontconfig
     - expat
     - liblzma-devel
     - xorg-xorgproto
