@@ -18,6 +18,8 @@ channel_targets:
 - conda-forge main
 expat:
 - '2'
+fontconfig:
+- '2'
 freetype:
 - '2'
 gdk_pixbuf:
