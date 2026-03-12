@@ -42,10 +42,11 @@ requirements:
     - {{ compiler('rust') }} >=1.77
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
-    - glib            # [build_platform != target_platform]
-    - libxml2-devel         # [build_platform != target_platform]
     - cairo           # [build_platform != target_platform]
+    - freetype        # [build_platform != target_platform]
     - gdk-pixbuf      # [build_platform != target_platform]
+    - glib            # [build_platform != target_platform]
+    - libxml2-devel   # [build_platform != target_platform]
     - pango           # [build_platform != target_platform]
     # needed for devel files (e.g. pkg-config):
     - expat           # [build_platform != target_platform]
