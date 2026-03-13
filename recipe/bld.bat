@@ -40,6 +40,7 @@ meson setup ^
   -Dpixbuf=enabled ^
   -Dpixbuf-loader=enabled ^
   -Dcfextragirdir=%LIBRARY_PREFIX%\share\gir-1.0 ^
+  -Dc_link_args="/FORCE:MULTIPLE" ^
   ..
 if errorlevel 1 exit 1
 

@@ -1,5 +1,5 @@
 {% set name = "librsvg" %}
-{% set version = "2.60.2" %}
+{% set version = "2.62.0" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
 
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: a5363adab179340fe03bf7896cf416c87f81dde855c10e572613f634abbed460
+  sha256: 4278ddc1195ab82f4fd834ac1f5aa75ac1685f3cc5484bb0eaebe03a790b8d82
   patches:
     - add_rust_lto.patch
     - windows_gir.patch  # [win]
@@ -23,8 +23,8 @@ build:
   ignore_run_exports_from:
     # Devel packages that we don't depend on directly:
     - expat
+    - fontconfig  # [win]
     - freetype
-    - harfbuzz
     - liblzma-devel
     - libpng
     - zlib
@@ -43,10 +43,11 @@ requirements:
     - {{ compiler('rust') }} >=1.77
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
-    - glib            # [build_platform != target_platform]
-    - libxml2-devel         # [build_platform != target_platform]
     - cairo           # [build_platform != target_platform]
+    - freetype        # [build_platform != target_platform]
     - gdk-pixbuf      # [build_platform != target_platform]
+    - glib            # [build_platform != target_platform]
+    - libxml2-devel   # [build_platform != target_platform]
     - pango           # [build_platform != target_platform]
     # needed for devel files (e.g. pkg-config):
     - expat           # [build_platform != target_platform]
@@ -59,9 +60,10 @@ requirements:
     - cairo
     - gdk-pixbuf
     - pango
-    - harfbuzz  # [linux]
+    - harfbuzz
     - libpng    # [linux]
-    - freetype  # [linux]
+    - freetype
+    - fontconfig
     - expat
     - liblzma-devel
     - xorg-xorgproto
