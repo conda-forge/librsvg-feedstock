@@ -37,10 +37,12 @@ requirements:
     - docutils
     - gi-docgen
     - gobject-introspection
-    - meson <1.11
+    - meson
     - ninja
     - pkg-config
-    - {{ compiler('rust') }} >=1.77
+    # Rust 1.95 on Windows is putting executables into target/x86_64-pc-windows-msvc/release/
+    # instead of target/release, which Meson isn't expecting.
+    - {{ compiler('rust') }} <1.95
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
     - cairo           # [build_platform != target_platform]
