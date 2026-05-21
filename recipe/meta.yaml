@@ -37,7 +37,7 @@ requirements:
     - docutils
     - gi-docgen
     - gobject-introspection
-    - meson
+    - meson <1.11
     - ninja
     - pkg-config
     - {{ compiler('rust') }} >=1.77
