@@ -1,5 +1,5 @@
 {% set name = "librsvg" %}
-{% set version = "2.62.1" %}
+{% set version = "2.62.2" %}
 {% set abi_version = "2.0" %}
 {% set version_majmin = version.rsplit('.', 1)[0] %}
 
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: b41ca84206242fddd826a2bf76348d7cdf52c1050cbfa060b866e81a252145c3
+  sha256: c0c1367e381e1ae4842a78f1b57c656ff19b25637e3a6527cb44ae5a1cc68d65
   patches:
     - add_rust_lto.patch
     - windows_gir.patch  # [win]
@@ -40,7 +40,9 @@ requirements:
     - meson
     - ninja
     - pkg-config
-    - {{ compiler('rust') }} >=1.77
+    # Rust 1.95 on Windows is putting executables into target/x86_64-pc-windows-msvc/release/
+    # instead of target/release, which Meson isn't expecting.
+    - {{ compiler('rust') }} <1.95
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
     - cairo           # [build_platform != target_platform]
