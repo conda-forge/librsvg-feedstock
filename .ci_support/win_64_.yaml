@@ -25,9 +25,9 @@ libpng:
 librsvg:
 - '2'
 libxml2:
-- '2.14'
+- '2.15'
 libxml2_devel:
-- '2.14'
+- '2.15'
 pango:
 - '1'
 rust_compiler:
