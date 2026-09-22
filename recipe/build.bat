@@ -43,11 +43,6 @@ meson setup ^
   -Dpixbuf-loader=enabled ^
   -Dcfextragirdir=%LIBRARY_PREFIX%\share\gir-1.0 ^
   ..
-
-:: TEMP debug Windows failure
-type meson-logs\meson-log.txt
-exit 1
-
 if errorlevel 1 exit 1
 
 ninja
