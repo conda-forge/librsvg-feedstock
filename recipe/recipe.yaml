@@ -31,7 +31,9 @@ requirements:
     - docutils
     - gi-docgen
     - gobject-introspection
-    - meson
+    - if: win
+      then: meson <1.12  # 1.12 mishandles c_link_args it seems
+      else: meson
     - ninja
     - pkg-config
     # Rust 1.95 on Windows is putting executables into target/x86_64-pc-windows-msvc/release/
