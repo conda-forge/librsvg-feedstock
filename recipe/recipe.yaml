@@ -44,9 +44,13 @@ requirements:
     - if: build_platform != target_platform
       then:
         - cairo
+        - fontconfig
         - freetype
         - gdk-pixbuf
         - glib
+        - harfbuzz
+        - if: linux
+          then: libpng
         - libxml2-devel
         - pango
         # needed for devel files (e.g. pkg-config):
