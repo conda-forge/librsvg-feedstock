@@ -1,0 +1,133 @@
+schema_version: 1
+
+context:
+  name: librsvg
+  version: "2.62.3"
+  abi_version: "2.0"
+  version_majmin: ${{ (version | split('.'))[:2] | join('.') }}
+  name_abi: ${{ name + "-" + abi_version }}
+  vs_major: "17"  # check VS_MAJOR in the build output
+  lib: ${{ name + "-" + (abi_version | split('.'))[0] if unix else "rsvg-" + abi_version }}
+
+package:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  url: https://download.gnome.org/sources/${{ name }}/${{ version_majmin }}/${{ name }}-${{ version }}.tar.xz
+  sha256: 7eb449b2722a768021356f66dfee3202c229b54ed4e6a70ce40c090e97ff16f2
+  patches:
+    - add_rust_lto.patch
+    - if: win
+      then: windows_gir.patch
+
+build:
+  number: 1
+
+requirements:
+  build:
+    - cargo-bundle-licenses
+    - cargo-c
+    - docutils
+    - gi-docgen
+    - gobject-introspection
+    - if: win
+      then: meson <1.12  # 1.12 mishandles c_link_args it seems
+      else: meson
+    - ninja
+    - pkg-config
+    # Rust 1.95 on Windows is putting executables into target/x86_64-pc-windows-msvc/release/
+    # instead of target/release, which Meson isn't expecting.
+    - if: win
+      then: ${{ compiler('rust') }} <1.95
+      else: ${{ compiler('rust') }}
+    - ${{ compiler('c') }}
+    - ${{ stdlib('c') }}
+    - if: build_platform != target_platform
+      then:
+        - cairo
+        - fontconfig
+        - freetype
+        - gdk-pixbuf
+        - glib
+        - harfbuzz
+        - if: linux
+          then: libpng
+        - libxml2-devel
+        - pango
+        # needed for devel files (e.g. pkg-config):
+        - expat
+        - liblzma-devel
+        - xorg-xorgproto
+        - zlib
+  host:
+    - glib
+    - libxml2-devel
+    - cairo
+    - gdk-pixbuf
+    - pango
+    - harfbuzz
+    - if: linux
+      then: libpng
+    - freetype
+    - fontconfig
+    - expat
+    - liblzma-devel
+    - xorg-xorgproto
+    - zlib
+  run_exports:
+    - ${{ pin_subpackage('librsvg', upper_bound='x') }}
+  ignore_run_exports:
+    by_name:
+      - libxml2
+    from_package:
+      - expat
+      - if: win
+        then: fontconfig
+      - freetype
+      - liblzma-devel
+      - libpng
+      - zlib
+
+tests:
+  - requirements:
+      run:
+        - pkg-config
+    script:
+      - rsvg-convert --version
+      - if: unix
+        then:
+          - test -f $PREFIX/lib/${{ lib }}${SHLIB_EXT}
+          - test ! -f $PREFIX/lib/${{ lib }}.a
+          - test -f `pkg-config --variable=libdir --dont-define-prefix ${{ name_abi }}`/${{ lib }}${SHLIB_EXT}
+          - test -f $PREFIX/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader_svg${SHLIB_EXT}
+          - test ! -f $PREFIX/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader_svg.a
+          - test -f $PREFIX/include/${{ name_abi }}/${{ name }}/rsvg-features.h
+          - test -f $PREFIX/include/${{ name_abi }}/${{ name }}/rsvg-cairo.h
+          - test -f $PREFIX/include/${{ name_abi }}/${{ name }}/rsvg.h
+          - test -f $PREFIX/lib/girepository-1.0/Rsvg-2.0.typelib
+      - if: win
+        then:
+          - if not exist %PREFIX%\\Library\\bin\\${{ lib }}-vs${{ vs_major }}.dll exit 1
+          - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix ${{ name_abi }}`) do if not exist "%%a/bin/${{ lib }}-vs${{ vs_major }}.dll" exit 1
+          - if not exist %PREFIX%\\Library\\lib\\${{ lib }}.lib exit 1
+          - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix ${{ name_abi }}`) do if not exist "%%a/${{ lib }}.lib" exit 1
+          - if not exist %PREFIX%\\Library\\lib\\gdk-pixbuf-2.0\\2.10.0\\loaders\\libpixbufloader_svg.dll exit 1
+          - if not exist %PREFIX%\\Library\\include\\${{ name_abi }}\\${{ name }}\\rsvg-features.h exit 1
+          - if not exist %PREFIX%\\Library\\include\\${{ name_abi }}\\${{ name }}\\rsvg-cairo.h exit 1
+          - if not exist %PREFIX%\\Library\\include\\${{ name_abi }}\\${{ name }}\\rsvg.h exit 1
+          - if not exist %LIBRARY_LIB%\\girepository-1.0\\Rsvg-2.0.typelib exit 1
+
+about:
+  license: LGPL-2.1-or-later
+  license_file:
+    - COPYING.LIB
+    - THIRDPARTY.yml
+  summary: librsvg is a library to render SVG files using cairo.
+  homepage: https://wiki.gnome.org/Projects/LibRsvg
+
+extra:
+  recipe-maintainers:
+    - pkgw
+    - tschoonj
+    - xhochy

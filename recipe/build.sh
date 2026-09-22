@@ -2,6 +2,8 @@
 
 set -exuo pipefail
 
+cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+
 # $BUILD_PREFIX needed here so gi-docgen can find .gir files:
 export XDG_DATA_DIRS="${XDG_DATA_DIRS:+$XDG_DATA_DIRS:}$PREFIX/share:$BUILD_PREFIX/share"
 
@@ -39,6 +41,7 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == 1 ]]; then
     meson setup native-build \
       "${meson_config_args[@]}" \
       --prefix="$BUILD_PREFIX" \
+      -Dlibdir=lib \
       -Dintrospection=enabled \
       -Dlocalstatedir="$BUILD_PREFIX/var" \
       || { cat native-build/meson-logs/meson-log.txt ; exit 1 ; }
@@ -50,10 +53,11 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == 1 ]]; then
     ninja -C native-build -j${CPU_COUNT}
     ninja -C native-build install
 
-    # Store generated introspection information
-    mkdir -p introspection/lib introspection/share
-    cp -ap $BUILD_PREFIX/lib/girepository-1.0 introspection/lib
-    cp -ap $BUILD_PREFIX/share/gir-1.0 introspection/share
+    # Store generated introspection information (but not any files that
+    # may be provided by our dependencies)
+    mkdir -p introspection/typelib introspection/gir
+    cp -vap $BUILD_PREFIX/lib/girepository-1.0/Rsvg*.typelib introspection/typelib
+    cp -vap $BUILD_PREFIX/share/gir-1.0/Rsvg*.gir introspection/gir
   )
   export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
   export MESON_ARGS="${MESON_ARGS} -Dintrospection=disabled"
@@ -77,3 +81,10 @@ ninja -C builddir -j$CPU_COUNT -v
 ninja -C builddir install
 
 rm -rf $PREFIX/share/doc
+
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == 1 ]]; then
+  # Install GIR/typelib files from the native build
+  mkdir -p $PREFIX/lib/girepository-1.0 $PREFIX/share/gir-1.0
+  cp -vap introspection/typelib/* $PREFIX/lib/girepository-1.0/
+  cp -vap introspection/gir/* $PREFIX/share/gir-1.0/
+fi

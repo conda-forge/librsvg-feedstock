@@ -5,7 +5,7 @@ c_compiler_version:
 c_stdlib:
 - sysroot
 c_stdlib_version:
-- '2.17'
+- '2.39'
 cairo:
 - '1'
 channel_sources:
@@ -13,7 +13,7 @@ channel_sources:
 channel_targets:
 - conda-forge main
 docker_image:
-- quay.io/condaforge/linux-anvil-aarch64:alma10
+- quay.io/condaforge/linux-anvil-x86_64:alma10
 expat:
 - '2'
 fontconfig:
@@ -35,6 +35,6 @@ pango:
 rust_compiler:
 - rust
 target_platform:
-- linux-aarch64
+- linux-riscv64
 zlib:
 - '1'
