@@ -44,6 +44,11 @@ meson setup ^
   -Dcfextragirdir=%LIBRARY_PREFIX%\share\gir-1.0 ^
   -Dc_link_args="/FORCE:MULTIPLE" ^
   ..
+
+:: TEMP debug Windows failure
+type meson-logs\meson-log.txt
+exit 1
+
 if errorlevel 1 exit 1
 
 ninja
