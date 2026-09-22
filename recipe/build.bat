@@ -3,6 +3,8 @@ setlocal EnableDelayedExpansion
 
 FOR /F "delims=" %%i IN ('cygpath.exe -m "%LIBRARY_PREFIX%"') DO set "LIBRARY_PREFIX_M=%%i"
 
+cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+
 :: set pkg-config path so that host deps can be found
 set "PKG_CONFIG_PATH=%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig"
 

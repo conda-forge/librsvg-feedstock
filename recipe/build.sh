@@ -2,6 +2,8 @@
 
 set -exuo pipefail
 
+cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+
 # $BUILD_PREFIX needed here so gi-docgen can find .gir files:
 export XDG_DATA_DIRS="${XDG_DATA_DIRS:+$XDG_DATA_DIRS:}$PREFIX/share:$BUILD_PREFIX/share"
 

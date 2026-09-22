@@ -25,6 +25,7 @@ build:
 
 requirements:
   build:
+    - cargo-bundle-licenses
     - cargo-c
     - docutils
     - gi-docgen
@@ -112,7 +113,9 @@ tests:
 
 about:
   license: LGPL-2.1-or-later
-  license_file: COPYING.LIB
+  license_file:
+    - COPYING.LIB
+    - THIRDPARTY.yml
   summary: librsvg is a library to render SVG files using cairo.
   homepage: https://wiki.gnome.org/Projects/LibRsvg
 
