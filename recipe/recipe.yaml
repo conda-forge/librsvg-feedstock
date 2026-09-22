@@ -34,7 +34,9 @@ requirements:
     - pkg-config
     # Rust 1.95 on Windows is putting executables into target/x86_64-pc-windows-msvc/release/
     # instead of target/release, which Meson isn't expecting.
-    - ${{ compiler('rust') }} <1.95
+    - if: win
+      then: ${{ compiler('rust') }} <1.95
+      else: ${{ compiler('rust') }}
     - ${{ compiler('c') }}
     - ${{ stdlib('c') }}
     - if: build_platform != target_platform
