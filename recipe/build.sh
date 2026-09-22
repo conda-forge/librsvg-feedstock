@@ -55,7 +55,7 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == 1 ]]; then
     # Store generated introspection information (but not any files that
     # may be provided by our dependencies)
     mkdir -p introspection/typelib introspection/gir
-    cp -vap $BUILD_PREFIX/lib/girepository-1.0/Rsvg*.typelib introspection/typelib
+    cp -vap $BUILD_PREFIX/lib64/girepository-1.0/Rsvg*.typelib introspection/typelib
     cp -vap $BUILD_PREFIX/share/gir-1.0/Rsvg*.gir introspection/gir
   )
   export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
