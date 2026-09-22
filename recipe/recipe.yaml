@@ -7,6 +7,7 @@ context:
   version_majmin: ${{ (version | split('.'))[:2] | join('.') }}
   name_abi: ${{ name + "-" + abi_version }}
   vs_major: dict(vs2015="14", vs2017="15", vs2019="16", vs2022="17") | get(c_compiler, "XX")
+  lib: ${{ name + "-" + (abi_version | split('.'))[0] if unix else "rsvg-" + abi_version }}
 
 package:
   name: ${{ name }}
