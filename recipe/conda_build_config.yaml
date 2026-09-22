@@ -1,4 +1,2 @@
-c_compiler:        # [win]
-  - vs2022         # [win]
 gdk_pixbuf:
   - 2
